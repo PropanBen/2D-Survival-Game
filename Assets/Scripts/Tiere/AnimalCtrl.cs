@@ -8,8 +8,9 @@ public class AnimalCtrl : MonoBehaviour
     public GameObject Mapgenerator;
     public NightDayCircel myNightDayCircel;
     public GameObject NightDay;
+    public GameObject Animal;
     public Ctrl myCtrl;
-    private float speed = 0.5f;
+    public float speed = 0.5f;
     private bool setleft;
     public Animator animator;
     public Vector3 Targetposition;
@@ -25,6 +26,7 @@ public class AnimalCtrl : MonoBehaviour
     private bool death = false;
     public bool attacking = false;
     public bool attackrange = false;
+    public bool animaldeath = false;
     private float ThisX;
     private float ThisY;
     private int roll;
@@ -35,18 +37,21 @@ public class AnimalCtrl : MonoBehaviour
     private float placeholderX;
     private float placeholderY;
     private Collider2D[] arrayofItems;
-    public LayerMask layermask;
+    public LayerMask layermaskitems;
+    public LayerMask layermaskanimals;
     public Dictionary<string, int> animaldamage;
     public Dictionary<string, int> health;
     public float distanceH;
     public float distance;
-    public float disappeartimer = 10;
+    public float disappeartimer = 4;
     public Dictionary<string, int> Hidedrop;
     public Dictionary<string, int> Meatdrop;
     public Dictionary<string, int> Featherdrop;
     public Dictionary<string, int> Linendrop;
     public Dictionary<string, int> Eggdrop;
     public Dictionary<string, int> Wooldrop;
+    public Dictionary<string, int> Hierachie;
+    public Dictionary<string, float> Speed;
     public int fellcounter;
     public int fleischcounter;
     public int federcounter;
@@ -69,7 +74,40 @@ public class AnimalCtrl : MonoBehaviour
         animator = GetComponent<Animator>();
 
         //*****************************************************************//
-        //  HIER Tierleben EINFÜGEN                                      //
+        //  HIER Speed EINFÜGEN                                            //
+        //*****************************************************************//
+        Speed = new Dictionary<string, float>();
+        Speed.Add("Crawler", 0.5f);
+        Speed.Add("Grashopper", 0.51f);
+        Speed.Add("Squirrel", 0.52f);
+        Speed.Add("Opossum", 0.53f);
+        Speed.Add("Rabbit", 0.54f);
+        Speed.Add("Chicken", 0.55f);
+        Speed.Add("Fox", 0.56f);
+        Speed.Add("Deer", 0.57f);
+        Speed.Add("Alpaca", 0.58f);
+        Speed.Add("Wolve", 0.59f);
+        Speed.Add("Bear", 0.6f);
+        speed = Speed[this.name];
+
+        //*****************************************************************//
+        //  HIER Hierachie EINFÜGEN                                        //
+        //*****************************************************************//
+        Hierachie = new Dictionary<string, int>();
+        Hierachie.Add("Crawler", 0);
+        Hierachie.Add("Grashopper", 1);
+        Hierachie.Add("Squirrel", 2);
+        Hierachie.Add("Opossum", 3);
+        Hierachie.Add("Rabbit", 4);
+        Hierachie.Add("Chicken", 5);
+        Hierachie.Add("Fox", 6);
+        Hierachie.Add("Deer", 7);
+        Hierachie.Add("Alpaca", 8);
+        Hierachie.Add("Wolve", 9);
+        Hierachie.Add("Bear", 10);
+
+        //*****************************************************************//
+        //  HIER Tierleben EINFÜGEN                                        //
         //*****************************************************************//
         health = new Dictionary<string, int>();
         health.Add("Crawler", 50);
@@ -81,12 +119,14 @@ public class AnimalCtrl : MonoBehaviour
         health.Add("Fox", 100);
         health.Add("Deer", 150);
         health.Add("Alpaca", 150);
-        health.Add("Wolve", 200);     
+        health.Add("Wolve", 200);
         health.Add("Bear", 300);
         // Start Leben setzen
         currentHealth = health[this.name];
         // Start Hunger setzen
-        currentHunger = Random.Range(25, 100);
+        if (this.name != "Bear")
+            currentHunger = Random.Range(25, 100);
+        else { currentHunger = 10; }
 
         //*****************************************************************//
         //  HIER Tierschaden EINFÜGEN                                      //
@@ -103,7 +143,7 @@ public class AnimalCtrl : MonoBehaviour
         animaldamage.Add("Deer", 15);
         animaldamage.Add("Alpaca", 15);
         animaldamage.Add("Wolve", 20);
-        animaldamage.Add("Bear", 30);
+        animaldamage.Add("Bear", 1);
 
 
         //*****************************************************************//
@@ -195,7 +235,7 @@ public class AnimalCtrl : MonoBehaviour
         else { moverandom = false; }
 
         // MovetoPlayer (Angreifen)
-        if(movetoplayer)
+        if (movetoplayer)
         {
             var spritetake = GetComponent<SpriteRenderer>();
             spritetake.sortingOrder = 12;
@@ -205,7 +245,7 @@ public class AnimalCtrl : MonoBehaviour
             var spritetake = GetComponent<SpriteRenderer>();
             spritetake.sortingOrder = 1;
         }
-     
+
         // Search Item
         if (!death && !hiding && !movetoplayer && currentHunger < 20)
         {
@@ -213,7 +253,7 @@ public class AnimalCtrl : MonoBehaviour
         }
 
         // Hide
-        if (currentHealth < 20 && distanceH <2)
+        if (currentHealth < 20 && distanceH < 2)
         {
             hiding = true;
             movetoplayer = false;
@@ -247,7 +287,7 @@ public class AnimalCtrl : MonoBehaviour
 
             sleeping = true;
         }
-        if(sleeping && !searchitem)
+        if (sleeping && !searchitem)
         {
             animator.SetBool("sleep", true);
         }
@@ -255,10 +295,10 @@ public class AnimalCtrl : MonoBehaviour
 
         // Walk Animation------------------------------------------------
 
-        if (!sleeping && !attackrange && (moverandom || movetoplayer || searchitem || hiding))
+        if (!sleeping && !attackrange && !animaldeath && (moverandom || movetoplayer || searchitem || hiding))
         {
             animator.SetBool("walk", true);
-            speed = 0.5f;
+            speed = Speed[this.name];
         }
         else
         {
@@ -275,10 +315,10 @@ public class AnimalCtrl : MonoBehaviour
 
         else { this.transform.localScale = new Vector3(-1, 1, 1); }
 
-        if (placeholderX < ThisX)
+      /*  if (placeholderX < ThisX)
         { setleft = true; }
         if (placeholderX > ThisX)
-        { setleft = false; }
+        { setleft = false; }*/
 
 
     }
@@ -288,11 +328,11 @@ public class AnimalCtrl : MonoBehaviour
     {
         if (moverandom == true && !sleeping)
         {
-            speed = 0.5f;
+            speed = Speed[this.name];
 
-                Targetposition = new Vector3(placeholderX,placeholderY, 0);
-                float step = speed * Time.deltaTime;
-                this.transform.position = Vector3.MoveTowards(this.transform.position, Targetposition, step);
+            Targetposition = new Vector3(placeholderX, placeholderY, 0);
+            float step = speed * Time.deltaTime;
+            this.transform.position = Vector3.MoveTowards(this.transform.position, Targetposition, step);
         }
     }
 
@@ -300,14 +340,16 @@ public class AnimalCtrl : MonoBehaviour
     {
         if (movetoplayer == true)
         {
-            speed = 0.5f;
+            speed = Speed[this.name];
             Targetposition = Attacker.transform.position;
-            if(this.transform.position.x > Attacker.transform.position.x)
-            { Targetposition += new Vector3(+0.15f, -0.2f, 0);
+            if (this.transform.position.x > Attacker.transform.position.x)
+            {
+                Targetposition += new Vector3(+0.15f, -0.2f, 0);
                 setleft = true;
             }
             if (this.transform.position.x < Attacker.transform.position.x)
-            { Targetposition += new Vector3(-0.15f, -0.2f, 0);
+            {
+                Targetposition += new Vector3(-0.15f, -0.2f, 0);
                 setleft = false;
             }
             distance = Vector2.Distance(this.transform.position, Attacker.transform.position);
@@ -321,7 +363,7 @@ public class AnimalCtrl : MonoBehaviour
                 attackrange = false;
                 animator.SetBool("attack", false);
             }
-             
+
             float step = speed * Time.deltaTime;
             this.transform.position = Vector3.MoveTowards(this.transform.position, Targetposition, step);
         }
@@ -332,9 +374,10 @@ public class AnimalCtrl : MonoBehaviour
     {
         if (searchitem == true)
         {
-            speed = 0.5f;
+            float distanceanimal = 0;
+            speed = Speed[this.name];
             // Items in Array packen und kürzeste Distanz ermitteln und das Object in Item schreiben
-            Collider2D[] arrayofItems = Physics2D.OverlapCircleAll(transform.position, 1.5f, layermask);
+            Collider2D[] arrayofItems = Physics2D.OverlapCircleAll(transform.position, 1.5f, layermaskitems);
             float distancetemp = 1.5f;
             foreach (Collider2D ItemTemp in arrayofItems)
             {
@@ -355,20 +398,81 @@ public class AnimalCtrl : MonoBehaviour
             }
             else
             {
-                Targetposition = new Vector3(placeholderX,placeholderY, 0);
-                float step = speed * Time.deltaTime;
-                this.transform.position = Vector3.MoveTowards(this.transform.position, Targetposition, step);
+                // Attack other Animals
+                Collider2D[] arrayofAnimals = Physics2D.OverlapCircleAll(transform.position, 1.5f, layermaskanimals);
+                float distancetempanimal = 1.5f;
+                foreach (Collider2D AnimalTemp in arrayofAnimals)
+                {
+                    AnimalCtrl myAnimal = AnimalTemp.GetComponent<AnimalCtrl>();
+
+                    int value;
+                    if (myAnimal.Hierachie.TryGetValue(AnimalTemp.name, out value))
+                    {
+                        if (value < Hierachie[this.name])
+                        {
+                            distanceanimal = Vector2.Distance(this.transform.position, AnimalTemp.transform.position);
+                            if (distanceanimal < distancetempanimal)
+                            {
+                                distancetempanimal = distanceanimal;
+                                Animal = AnimalTemp.gameObject;
+                            }
+                        }
+                    }
+                }
+
+
+                if (Animal != null)
+                {
+                    AnimalCtrl myAnimal = Animal.GetComponent<AnimalCtrl>();
+
+
+                    if (!myAnimal.death)
+                    {
+                        animaldeath = false;
+                        Targetposition = Animal.transform.position;
+                        float stepa = speed * Time.deltaTime;
+                        this.transform.position = Vector3.MoveTowards(this.transform.position, Targetposition, stepa);
+                    }
+                    else
+                    {
+                        attacking = false;
+                        animaldeath = true;
+                    }
+
+                    // if (transform.position == Animal.transform.position && !myAnimal.death)
+                    if (distanceanimal < 0.2f && !myAnimal.death)
+                    {
+                        animator.SetBool("attack", true);
+                    }
+                    else { animator.SetBool("attack", false); }
+                    if(attacking && !myAnimal.death)
+                    {
+                        Animal.SendMessage("GetAttacker", this.gameObject);
+                        Animal.SendMessage("TakeDamage", animaldamage[this.name]);
+
+                    }
+                }
+                else
+                {
+                    animaldeath = false;
+                    animator.SetBool("attack", false);
+                    attacking = false;
+                    // Move Random
+                    Targetposition = new Vector3(placeholderX, placeholderY, 0);
+                    float step = speed * Time.deltaTime;
+                    this.transform.position = Vector3.MoveTowards(this.transform.position, Targetposition, step);
+                }
             }
         }
-        // Wenn satt SearchItem Modus verlassen
+        // Wenn satt dann SearchItem Modus verlassen
         if (currentHunger > 30)
         {
             searchitem = false;
         }
-        if(Item != null && transform.position == Item.transform.position)
+        if (Item != null && transform.position == Item.transform.position)
         {
             Items myItems = Item.GetComponent<Items>();
-           // int value = myItems.essenswerte[Item.name];
+            // int value = myItems.essenswerte[Item.name];
             int value = 0;
             myItems.animalfood.TryGetValue(Item.name, out value);
             if (value > 0)
@@ -407,9 +511,9 @@ public class AnimalCtrl : MonoBehaviour
             float step = speed * Time.deltaTime;
             this.transform.position = Vector3.MoveTowards(this.transform.position, Targetposition, step);
         }
-        if(distanceH >= 2)
+        if (distanceH >= 2)
         {
-            animator.SetBool("run", false); 
+            animator.SetBool("run", false);
             hiding = false;
             attackrange = false;
         }
@@ -420,7 +524,7 @@ public class AnimalCtrl : MonoBehaviour
         if (death == true)
         {
             animator.SetBool("dead", true);
-           
+
             disappeartimer -= Time.deltaTime;
             if (disappeartimer <= 0)
             {
@@ -432,16 +536,18 @@ public class AnimalCtrl : MonoBehaviour
 
     // Zielposition auswürfeln ---------------------------------------------
     void Direction()
-    {      
+    {
         waittimer = Random.Range(0, 10);
-        placeholderX = Random.Range(-myMapgenerator.mapWidth / 10, myMapgenerator.mapWidth  /10);
-        placeholderY = Random.Range(-myMapgenerator.mapHeight / 10, myMapgenerator.mapHeight /10);
+        placeholderX = Random.Range(-myMapgenerator.mapWidth / 10, myMapgenerator.mapWidth / 10);
+        placeholderY = Random.Range(-myMapgenerator.mapHeight / 10, myMapgenerator.mapHeight / 10);
     }
     //----------------------------------------------------------------------
 
     // Damage
     private void TakeDamage(float damage)
     {
+
+        print(this.name+" Damage" + damage);
         currentHealth -= damage;
         if (currentHealth < 0)
         {
@@ -450,9 +556,16 @@ public class AnimalCtrl : MonoBehaviour
         Color tmp = this.GetComponent<SpriteRenderer>().color;
         this.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0, 255);
         Invoke("resetDamageColor", 0.2f);
-        if(!death)
-        movetoplayer = true;
+        if (!death)
+            movetoplayer = true;
     }
+
+    // Get Attacker
+
+        private void GetAttacker(GameObject Engager)
+        {
+        Attacker = Engager;
+        }
     //-----------------------------------------------------------------------
 
     // Hungertimer
@@ -468,24 +581,19 @@ public class AnimalCtrl : MonoBehaviour
     //-----------------------------------------------------------------------
 
     // Damage from Weapon
-    void OnTriggerEnter2D(Collider2D Weapon)
+    void OnTriggerEnter2D(Collider2D Engager)
     {
-        if(Weapon.GetComponent<AnimalCtrl>() != null)
-        {
-            Attacker = Weapon.transform.root.gameObject;
-        }
-        //(Weapon.CompareTag("weapon")
-        if(myCtrl.attack == true && Weapon.CompareTag("weapon") && Weapon is PolygonCollider2D && !death)
+        // Von Spieler attakiert
+        if (myCtrl.attack == true && Engager.CompareTag("weapon") && Engager is PolygonCollider2D && !death)
         {
             Attacker = Charakter;
-            Items myWeapon = Weapon.GetComponent<Items>();
+            Items myEngager = Engager.GetComponent<Items>();
             int value = 0;
-            if(myWeapon.Weapon.TryGetValue(Weapon.name, out value))
-            { 
+            if (myEngager.Weapon.TryGetValue(Engager.name, out value))
+            {
                 TakeDamage(value);
             }
         }
-        
     }
 
     // Rote Damage Anzeige zurücksetzen
@@ -514,7 +622,7 @@ public class AnimalCtrl : MonoBehaviour
         int wool;
 
         if (Hidedrop.TryGetValue(this.name, out hide))
-        { fellcounter = hide;   }
+        { fellcounter = hide; }
         if (Meatdrop.TryGetValue(this.name, out meat))
         { fleischcounter = meat; }
         if (Featherdrop.TryGetValue(this.name, out feather))
@@ -527,7 +635,7 @@ public class AnimalCtrl : MonoBehaviour
         { woolcounter = wool; }
 
 
-        if (fleischcounter !=0)
+        if (fleischcounter != 0)
             InstantItem("Meat", fleischcounter);
         if (fellcounter != 0)
             InstantItem("Hide", federcounter);

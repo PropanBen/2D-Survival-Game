@@ -23,9 +23,9 @@ GameObject:
   - component: {fileID: 95121255171489740}
   - component: {fileID: 114515962208082554}
   - component: {fileID: 61188873847201128}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fox
-  m_TagString: Untagged
+  m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,27 +96,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1616ce6ec80a5fa47bd7d046c4f39740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myMapgenerator: {fileID: 0}
+  Mapgenerator: {fileID: 0}
   myNightDayCircel: {fileID: 0}
   NightDay: {fileID: 0}
+  Animal: {fileID: 0}
   myCtrl: {fileID: 0}
   animator: {fileID: 95121255171489740}
   Targetposition: {x: 0, y: 0, z: 0}
   Charakter: {fileID: 0}
   Attacker: {fileID: 0}
   Camera: {fileID: 0}
+  moverandom: 0
   movetoplayer: 0
+  searchitem: 0
   attacking: 0
   attackrange: 0
-  layermask:
+  currentHunger: 0
+  layermaskitems:
     serializedVersion: 2
     m_Bits: 256
+  layermaskanimals:
+    serializedVersion: 2
+    m_Bits: 4096
   distanceH: 0
   distance: 0
   disappeartimer: 10
   fellcounter: 0
   fleischcounter: 0
   federcounter: 0
-  DeathSprite: {fileID: 0}
+  linencounter: 0
+  eggcounter: 0
+  woolcounter: 0
 --- !u!212 &212006990238922948
 SpriteRenderer:
   m_ObjectHideFlags: 1

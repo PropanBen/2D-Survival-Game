@@ -8200,6 +8200,11 @@ Prefab:
       propertyPath: NightDay
       value: 
       objectReference: {fileID: 615887340}
+    - target: {fileID: 61253217208050858, guid: 11ebaeaf25146db43b72217a051d3a7b,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 11ebaeaf25146db43b72217a051d3a7b, type: 2}
   m_IsPrefabParent: 0

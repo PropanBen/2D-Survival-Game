@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212250430162258898}
   - component: {fileID: 61827547527565328}
   - component: {fileID: 114954934075871924}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Meat
   m_TagString: roastable
   m_Icon: {fileID: 0}
@@ -101,6 +101,7 @@ MonoBehaviour:
   - Tinderdrill
   - Wetzstein
   Childlist: []
+  spritedrop: {fileID: 0}
 --- !u!212 &212250430162258898
 SpriteRenderer:
   m_ObjectHideFlags: 1

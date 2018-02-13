@@ -33,7 +33,6 @@ public class Spawnmanager : MonoBehaviour {
         ToHavelist.Add("Opossum", 5);
         ToHavelist.Add("Rabbit", 10);
         ToHavelist.Add("Squirrel", 5);
-        ToHavelist.Add("Glas", 100);
     }
 	
 	// Update is called once per frame
@@ -59,10 +58,14 @@ public class Spawnmanager : MonoBehaviour {
             }
         }
         // Anzahl der Elemente in Liste ermitteln
+        Havelist.Clear();
         foreach (string Obj in Objectlist)
         {
             int amount = Objectlist.Where(a => a == Obj).Count();
-            Havelist.Add(Obj, amount);
+            if (!Havelist.ContainsKey(Obj))
+            {
+                Havelist.Add(Obj, amount);
+            }
         }
 
         // Vergleichen der Dictionaries und Differenzermitteln

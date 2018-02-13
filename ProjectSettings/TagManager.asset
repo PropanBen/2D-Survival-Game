@@ -27,6 +27,7 @@ TagManager:
   - weapon
   - mealtable
   - heal
+  - Animal
   layers:
   - Default
   - TransparentFX

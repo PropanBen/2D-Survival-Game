@@ -23,9 +23,9 @@ GameObject:
   - component: {fileID: 114552670421745840}
   - component: {fileID: 61582122579756908}
   - component: {fileID: 95939033820850718}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Crawler
-  m_TagString: Untagged
+  m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,8 +96,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1616ce6ec80a5fa47bd7d046c4f39740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myMapgenerator: {fileID: 0}
+  Mapgenerator: {fileID: 0}
   myNightDayCircel: {fileID: 0}
   NightDay: {fileID: 0}
+  Animal: {fileID: 0}
   myCtrl: {fileID: 0}
   animator: {fileID: 0}
   Targetposition: {x: 0, y: 0, z: 0}
@@ -110,9 +113,12 @@ MonoBehaviour:
   attacking: 0
   attackrange: 0
   currentHunger: 0
-  layermask:
+  layermaskitems:
     serializedVersion: 2
     m_Bits: 256
+  layermaskanimals:
+    serializedVersion: 2
+    m_Bits: 4096
   distanceH: 0
   distance: 0
   disappeartimer: 10
