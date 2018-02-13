@@ -5878,8 +5878,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1203390478}
   m_HandleRect: {fileID: 1203390477}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.5621426
+  m_Value: 0.99999946
+  m_Size: 0.5621425
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -13890,6 +13890,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
         type: 2}
+      propertyPath: TileTypes.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
       propertyPath: ItemSpawns.Array.size
       value: 0
       objectReference: {fileID: 0}
@@ -13906,6 +13911,21 @@ Prefab:
     - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
         type: 2}
       propertyPath: TileTypes.Array.data[2].UniqueItemForTileType.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[0].UniqueItemsForTileType.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[1].UniqueItemsForTileType.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[2].UniqueItemsForTileType.Array.size
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4102341729883800, guid: 7b68f2bd3cf4204438916440ac238b13, type: 2}
@@ -13963,19 +13983,19 @@ Prefab:
         type: 2}
       propertyPath: TileTypes.Array.data[0].TypeSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 29a77aeb8962fa64ea30a957ad8891da,
+      objectReference: {fileID: 21300000, guid: c06a10dd8d388b8458f9b57ad5064420,
         type: 3}
     - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
         type: 2}
       propertyPath: TileTypes.Array.data[1].TypeSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 174a4e1c61942a9478683e3346eb833c,
+      objectReference: {fileID: 21300000, guid: a2648ce0aefb82348b88eb154af22487,
         type: 3}
     - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
         type: 2}
       propertyPath: TileTypes.Array.data[2].TypeSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 3213fdf52c453094799eb1dfbf690701,
+      objectReference: {fileID: 21300000, guid: 488c6924eba0ca64983d5fd019f9b60a,
         type: 3}
     - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
         type: 2}
@@ -14156,9 +14176,182 @@ Prefab:
       propertyPath: Tilemap
       value: 
       objectReference: {fileID: 1521558636}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: spriteGroesse
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[0].Weight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[1].Weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[2].Weight
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[3].Weight
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: BorderSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a3ccf8d83ca108542839513f6c3ff5fa,
+        type: 3}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: tile
+      value: 
+      objectReference: {fileID: 1054342790953782, guid: 73cc97ba0cf1c4a4ca428a675a2edbab,
+        type: 2}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: parent
+      value: 
+      objectReference: {fileID: 1279046483}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[0].UniqueItemsForTileType.Array.data[0].ItemPrefab
+      value: 
+      objectReference: {fileID: 1912465542056280, guid: d36668bbe882ebb479330856950c2088,
+        type: 2}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[0].UniqueItemsForTileType.Array.data[0].ItemSpawnCountPerSquareSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[0].UniqueItemsForTileType.Array.data[1].ItemPrefab
+      value: 
+      objectReference: {fileID: 1117359519937690, guid: 660f06d6a50b1784d864c45f5676ffb6,
+        type: 2}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[0].UniqueItemsForTileType.Array.data[1].ItemSpawnCountPerSquareSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[0].UniqueItemsForTileType.Array.data[2].ItemPrefab
+      value: 
+      objectReference: {fileID: 1874344005813358, guid: 2fda8b98d4b44df498a9483b7ba19e43,
+        type: 2}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[0].UniqueItemsForTileType.Array.data[2].ItemSpawnCountPerSquareSize
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[0].UniqueItemsForTileType.Array.data[3].ItemPrefab
+      value: 
+      objectReference: {fileID: 1681146356570238, guid: f1064bf9ff025c34aabf696ac8537754,
+        type: 2}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[0].UniqueItemsForTileType.Array.data[3].ItemSpawnCountPerSquareSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[0].UniqueItemsForTileType.Array.data[4].ItemPrefab
+      value: 
+      objectReference: {fileID: 1294765828837984, guid: 42a12f9c2cfba3e4fa54cde722259c75,
+        type: 2}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[0].UniqueItemsForTileType.Array.data[4].ItemSpawnCountPerSquareSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[1].UniqueItemsForTileType.Array.data[0].ItemPrefab
+      value: 
+      objectReference: {fileID: 1947398072653710, guid: ac6c6b6f9d689fb4b89a0b9ce1cc791c,
+        type: 2}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[1].UniqueItemsForTileType.Array.data[0].ItemSpawnCountPerSquareSize
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[1].UniqueItemsForTileType.Array.data[1].ItemPrefab
+      value: 
+      objectReference: {fileID: 1900411404758288, guid: e199b5ec8610dcd4d9af73a06ccdbc6d,
+        type: 2}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[1].UniqueItemsForTileType.Array.data[1].ItemSpawnCountPerSquareSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[2].UniqueItemsForTileType.Array.data[0].ItemPrefab
+      value: 
+      objectReference: {fileID: 1636630041070194, guid: 9c17ad9a63ad7704fbccbdde5a448c72,
+        type: 2}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[2].UniqueItemsForTileType.Array.data[0].ItemSpawnCountPerSquareSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[2].UniqueItemsForTileType.Array.data[1].ItemPrefab
+      value: 
+      objectReference: {fileID: 1090251121453786, guid: 3c9d2d252839bce40886460663a52b8c,
+        type: 2}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[2].UniqueItemsForTileType.Array.data[1].ItemSpawnCountPerSquareSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[2].UniqueItemsForTileType.Array.data[2].ItemPrefab
+      value: 
+      objectReference: {fileID: 1982929197374292, guid: ba36c121443b88049bd2164919c802cc,
+        type: 2}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[2].UniqueItemsForTileType.Array.data[2].ItemSpawnCountPerSquareSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[2].UniqueItemsForTileType.Array.data[3].ItemPrefab
+      value: 
+      objectReference: {fileID: 1994094433296530, guid: 6487a856d9e4a584abc538498f735807,
+        type: 2}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: TileTypes.Array.data[2].UniqueItemsForTileType.Array.data[3].ItemSpawnCountPerSquareSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114642249156490456, guid: 7b68f2bd3cf4204438916440ac238b13,
+        type: 2}
+      propertyPath: SquareSize
+      value: 150
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7b68f2bd3cf4204438916440ac238b13, type: 2}
   m_IsPrefabParent: 0
+--- !u!4 &1279046483 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4390242469405884, guid: 7b68f2bd3cf4204438916440ac238b13,
+    type: 2}
+  m_PrefabInternal: {fileID: 1279046482}
 --- !u!1 &1279590706
 GameObject:
   m_ObjectHideFlags: 0
@@ -16209,7 +16402,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -0.000022085449, y: 0.000030517578}
+  m_AnchoredPosition: {x: 0.00000068762523, y: 0.00009253925}
   m_SizeDelta: {x: 254.2, y: 398.6}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1504368677

@@ -6,6 +6,7 @@ public class VoronoiMap {
 
     Lottery<Number> lottery = new Lottery<Number>();
     private VoronoiPoint[] voronoiPoints;
+    private Dictionary<VoronoiPoint, List<Vector2>> regions;
 
     public VoronoiMap(TileType[] tileTypes)
     {
@@ -15,10 +16,13 @@ public class VoronoiMap {
         }
     }
 
-    public byte[,] GenerateMap(int mapWidth, int mapHeight, int pointCount)
+    public byte[,] GenerateMap(int mapWidth, int mapHeight, int pointCount, out Dictionary<VoronoiPoint, List<Vector2>> regions)
     {
+        this.regions = new Dictionary<VoronoiPoint, List<Vector2>>();
         GenerateVoronoiPoints(mapWidth, mapHeight, pointCount);
-        return GenerateByteMap(mapWidth, mapHeight);
+        byte[,] map = GenerateByteMap(mapWidth, mapHeight);
+        regions = this.regions;
+        return map;
     }
     
     private void GenerateVoronoiPoints(int mapWidth, int mapHeight, int pointCount)
@@ -63,7 +67,12 @@ public class VoronoiMap {
         {
             for (int y = 0; y < mapHeight; y++)
             {
-                map[x, y] = NearestVoronoiPoint(x, y).TileIndex;
+                VoronoiPoint nearestVP = NearestVoronoiPoint(x, y);
+                map[x, y] = nearestVP.TileIndex;
+                if (!regions.ContainsKey(nearestVP))
+                    regions.Add(nearestVP, new List<Vector2>());
+
+                regions[nearestVP].Add(new Vector2(x, y));
             }
         }
 
@@ -97,7 +106,7 @@ class Number
     public byte Index;
 }
 
-class VoronoiPoint
+public class VoronoiPoint
 {
     public int X, Y;
     public byte TileIndex;
