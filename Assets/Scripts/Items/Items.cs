@@ -106,7 +106,7 @@ public class Items : MonoBehaviour
 
         // Werte für Animalfood
         animalfood = new Dictionary<string, int>();
-        animalfood.Add("Gras", 1);
+        animalfood.Add("Gras", 0);
         animalfood.Add("Egg", 1);
         animalfood.Add("Apple", 1);
         animalfood.Add("Meat", 1);

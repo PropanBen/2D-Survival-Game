@@ -43,7 +43,7 @@ public class AnimalCtrl : MonoBehaviour
     public Dictionary<string, int> health;
     public float distanceH;
     public float distance;
-    public float disappeartimer = 4;
+    public float disappeartimer = 2;
     public Dictionary<string, int> Hidedrop;
     public Dictionary<string, int> Meatdrop;
     public Dictionary<string, int> Featherdrop;
@@ -58,6 +58,7 @@ public class AnimalCtrl : MonoBehaviour
     public int linencounter;
     public int eggcounter;
     public int woolcounter;
+    public float timer = 1.5f;
 
 
     // Use this for initialization
@@ -143,7 +144,7 @@ public class AnimalCtrl : MonoBehaviour
         animaldamage.Add("Deer", 15);
         animaldamage.Add("Alpaca", 15);
         animaldamage.Add("Wolve", 20);
-        animaldamage.Add("Bear", 1);
+        animaldamage.Add("Bear", 30);
 
 
         //*****************************************************************//
@@ -208,6 +209,8 @@ public class AnimalCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        timer -= Time.deltaTime;
         Hungertimer(0);
         MoveRandom();
         MovetoPlayer();
@@ -295,7 +298,8 @@ public class AnimalCtrl : MonoBehaviour
 
         // Walk Animation------------------------------------------------
 
-        if (!sleeping && !attackrange && !animaldeath && (moverandom || movetoplayer || searchitem || hiding))
+        if (!sleeping && !attackrange && !animaldeath &&
+            (moverandom || movetoplayer || searchitem || hiding))
         {
             animator.SetBool("walk", true);
             speed = Speed[this.name];
@@ -315,10 +319,10 @@ public class AnimalCtrl : MonoBehaviour
 
         else { this.transform.localScale = new Vector3(-1, 1, 1); }
 
-      /*  if (placeholderX < ThisX)
-        { setleft = true; }
-        if (placeholderX > ThisX)
-        { setleft = false; }*/
+        /* if (placeholderX < ThisX)
+         { setleft = true; }
+         if (placeholderX > ThisX)
+         { setleft = false; }*/
 
 
     }
@@ -338,328 +342,352 @@ public class AnimalCtrl : MonoBehaviour
 
     void MovetoPlayer()
     {
-        if (movetoplayer == true)
+        if (Attacker != null)
         {
-            speed = Speed[this.name];
-            Targetposition = Attacker.transform.position;
-            if (this.transform.position.x > Attacker.transform.position.x)
+            if (movetoplayer == true && searchitem == false)
             {
-                Targetposition += new Vector3(+0.15f, -0.2f, 0);
-                setleft = true;
-            }
-            if (this.transform.position.x < Attacker.transform.position.x)
-            {
-                Targetposition += new Vector3(-0.15f, -0.2f, 0);
-                setleft = false;
-            }
-            distance = Vector2.Distance(this.transform.position, Attacker.transform.position);
-            if (!death && distance <= 0.251f)
-            {
-                attackrange = true;
-                animator.SetBool("attack", true);
-            }
-            else
-            {
-                attackrange = false;
-                animator.SetBool("attack", false);
-            }
 
-            float step = speed * Time.deltaTime;
-            this.transform.position = Vector3.MoveTowards(this.transform.position, Targetposition, step);
+                speed = Speed[this.name];
+                    Targetposition = Attacker.transform.position;
+
+                    if (this.transform.position.x > Attacker.transform.position.x)
+                    {
+                        Targetposition += new Vector3(+0.15f, -0.2f, 0);
+                        setleft = true;
+                    }
+                    if (this.transform.position.x < Attacker.transform.position.x)
+                    {
+                        Targetposition += new Vector3(-0.15f, -0.2f, 0);
+                        setleft = false;
+                    }
+                    distance = Vector2.Distance(this.transform.position, Attacker.transform.position);
+                    if (!death && distance <= 0.3f)
+                    {
+                        if (Attacker.GetComponent<AnimalCtrl>() && !Attacker.GetComponent<AnimalCtrl>().death)
+                        {
+                            attackrange = true;
+                            animator.SetBool("attack", true);
+                            AnimalCtrl myAttacker = GetComponent<AnimalCtrl>();
+                            Attacker.SendMessage("GetAttacker", this.gameObject);
+                            Attacker.SendMessage("TakeDamage", myAttacker.animaldamage[Attacker.name]);
+                        }     
+                        else if(Attacker.GetComponent<Ctrl>()&& !Attacker.GetComponent<Ctrl>().death)
+                        {
+                            attackrange = true;
+                            animator.SetBool("attack", true);
+                        }
+                        else { animator.SetBool("attack", false); }
+                       
+                    }
+                    else
+                    {
+                        attackrange = false;
+                        animator.SetBool("attack", false);
+                    }
+
+                    float step = speed * Time.deltaTime;
+                    this.transform.position = Vector3.MoveTowards(this.transform.position, Targetposition, step);
+            }
         }
-
-    }
-
-    void SearchItem()
-    {
-        if (searchitem == true)
+        else
         {
-            float distanceanimal = 0;
-            speed = Speed[this.name];
-            // Items in Array packen und kürzeste Distanz ermitteln und das Object in Item schreiben
-            Collider2D[] arrayofItems = Physics2D.OverlapCircleAll(transform.position, 1.5f, layermaskitems);
-            float distancetemp = 1.5f;
-            foreach (Collider2D ItemTemp in arrayofItems)
+            attackrange = false;
+            movetoplayer = false;
+        }
+   }
+
+        void SearchItem()
+        {
+            if (searchitem == true)
             {
-                float distance = Vector2.Distance(this.transform.position, ItemTemp.transform.position);
-                if (distance < distancetemp)
+                float distanceanimal = 0;
+                speed = Speed[this.name];
+                // Items in Array packen und kürzeste Distanz ermitteln und das Object in Item schreiben
+                Collider2D[] arrayofItems = Physics2D.OverlapCircleAll(transform.position, 1.5f, layermaskitems);
+                float distancetemp = 1.5f;
+                foreach (Collider2D ItemTemp in arrayofItems)
                 {
-                    distancetemp = distance;
-                    Item = ItemTemp.gameObject;
+                    float distance = Vector2.Distance(this.transform.position, ItemTemp.transform.position);
+                    if (distance < distancetemp)
+                    {
+                        distancetemp = distance;
+                        Item = ItemTemp.gameObject;
+                    }
+                }
+                // Wenn Item gefunden dann dieses ansteuern, ansonsten Random laufen
+                if (Item != null)
+                {
+                    Targetposition = Item.transform.position;
+
+                    float step = speed * Time.deltaTime;
+                    this.transform.position = Vector3.MoveTowards(this.transform.position, Targetposition, step);
+                }
+                else
+                {
+                    // Attack other Animals
+                    Collider2D[] arrayofAnimals = Physics2D.OverlapCircleAll(transform.position, 1.5f, layermaskanimals);
+                    float distancetempanimal = 1.5f;
+                    foreach (Collider2D AnimalTemp in arrayofAnimals)
+                    {
+                        AnimalCtrl myAnimal = AnimalTemp.GetComponent<AnimalCtrl>();
+
+                        int value;
+                        if (myAnimal.Hierachie.TryGetValue(AnimalTemp.name, out value))
+                        {
+                            if (value < Hierachie[this.name])
+                            {
+                                distanceanimal = Vector2.Distance(this.transform.position, AnimalTemp.transform.position);
+                                if (distanceanimal < distancetempanimal)
+                                {
+                                    Animal = null;
+                                    distancetempanimal = distanceanimal;
+                                    Animal = AnimalTemp.gameObject;
+                                }
+                            }
+                        }
+                    }
+
+
+                    if (Animal != null)
+                    {
+                        AnimalCtrl myAnimal = Animal.GetComponent<AnimalCtrl>();
+
+
+                        if (!myAnimal.death)
+                        {
+                            animaldeath = false;
+                            Targetposition = Animal.transform.position;
+                            float stepa = speed * Time.deltaTime;
+                            this.transform.position = Vector3.MoveTowards(this.transform.position, Targetposition, stepa);
+                        }
+                        else
+                        {
+                            attacking = false;
+                            animaldeath = true;
+                        }
+
+                        // if (transform.position == Animal.transform.position && !myAnimal.death)
+                        if (distanceanimal < 0.5f && !myAnimal.death)
+                        {
+                            animator.SetBool("attack", true);
+                        }
+                        else { animator.SetBool("attack", false); }
+                        if (attacking && !myAnimal.death)
+                        {
+                            Animal.SendMessage("GetAttacker", this.gameObject);
+                            Animal.SendMessage("TakeDamage", animaldamage[this.name]);
+
+                        }
+                    }
+                    else
+                    {
+                        animaldeath = false;
+                        animator.SetBool("attack", false);
+                        attacking = false;
+                        // Move Random
+                        Targetposition = new Vector3(placeholderX, placeholderY, 0);
+                        float step = speed * Time.deltaTime;
+                        this.transform.position = Vector3.MoveTowards(this.transform.position, Targetposition, step);
+                    }
                 }
             }
-            // Wenn Item gefunden dann dieses ansteuern, ansonsten Random laufen
-            if (Item != null)
+            // Wenn satt dann SearchItem Modus verlassen
+            if (currentHunger > 30)
             {
-                Targetposition = Item.transform.position;
+                searchitem = false;
+            }
+            if (Item != null && transform.position == Item.transform.position)
+            {
+                Items myItems = Item.GetComponent<Items>();
+                // int value = myItems.essenswerte[Item.name];
+                int value = -1;
+                myItems.animalfood.TryGetValue(Item.name, out value);
+                if (value > -1)
+                {
+                    this.SendMessage("Hungertimer", value);
+                    Destroy(Item);
+                    Item = null;
+                    value = 0;
+                }
+            }
+        }
+
+        void Hide()
+        {
+            if (hiding == true && distanceH < 2 && Attacker != null )
+            {
+                attacking = false;
+                speed = 1;
+                Targetposition = Attacker.transform.position;
+                distanceH = Vector2.Distance(this.transform.position, Attacker.transform.position);
+                if (this.transform.position.x > Attacker.transform.position.x)
+                {
+                    Targetposition += new Vector3(2, 0, 0);
+                    setleft = false;
+                    animator.SetBool("run", true);
+                }
+                if (this.transform.position.x < Attacker.transform.position.x)
+                {
+                    Targetposition += new Vector3(-2, 0, 0);
+                    setleft = true;
+                    animator.SetBool("run", true);
+                }
 
                 float step = speed * Time.deltaTime;
                 this.transform.position = Vector3.MoveTowards(this.transform.position, Targetposition, step);
             }
-            else
+            if (distanceH >= 2)
             {
-                // Attack other Animals
-                Collider2D[] arrayofAnimals = Physics2D.OverlapCircleAll(transform.position, 1.5f, layermaskanimals);
-                float distancetempanimal = 1.5f;
-                foreach (Collider2D AnimalTemp in arrayofAnimals)
+                animator.SetBool("run", false);
+                hiding = false;
+                attackrange = false;
+            }
+        }
+
+        void Death()
+        {
+            if (death == true)
+            {
+                animator.SetBool("dead", true);
+
+                disappeartimer -= Time.deltaTime;
+                if (disappeartimer <= 0)
                 {
-                    AnimalCtrl myAnimal = AnimalTemp.GetComponent<AnimalCtrl>();
-
-                    int value;
-                    if (myAnimal.Hierachie.TryGetValue(AnimalTemp.name, out value))
-                    {
-                        if (value < Hierachie[this.name])
-                        {
-                            distanceanimal = Vector2.Distance(this.transform.position, AnimalTemp.transform.position);
-                            if (distanceanimal < distancetempanimal)
-                            {
-                                distancetempanimal = distanceanimal;
-                                Animal = AnimalTemp.gameObject;
-                            }
-                        }
-                    }
-                }
-
-
-                if (Animal != null)
-                {
-                    AnimalCtrl myAnimal = Animal.GetComponent<AnimalCtrl>();
-
-
-                    if (!myAnimal.death)
-                    {
-                        animaldeath = false;
-                        Targetposition = Animal.transform.position;
-                        float stepa = speed * Time.deltaTime;
-                        this.transform.position = Vector3.MoveTowards(this.transform.position, Targetposition, stepa);
-                    }
-                    else
-                    {
-                        attacking = false;
-                        animaldeath = true;
-                    }
-
-                    // if (transform.position == Animal.transform.position && !myAnimal.death)
-                    if (distanceanimal < 0.2f && !myAnimal.death)
-                    {
-                        animator.SetBool("attack", true);
-                    }
-                    else { animator.SetBool("attack", false); }
-                    if(attacking && !myAnimal.death)
-                    {
-                        Animal.SendMessage("GetAttacker", this.gameObject);
-                        Animal.SendMessage("TakeDamage", animaldamage[this.name]);
-
-                    }
-                }
-                else
-                {
-                    animaldeath = false;
-                    animator.SetBool("attack", false);
-                    attacking = false;
-                    // Move Random
-                    Targetposition = new Vector3(placeholderX, placeholderY, 0);
-                    float step = speed * Time.deltaTime;
-                    this.transform.position = Vector3.MoveTowards(this.transform.position, Targetposition, step);
+                    Itemdrop();
+                    Destroy(transform.gameObject);
                 }
             }
         }
-        // Wenn satt dann SearchItem Modus verlassen
-        if (currentHunger > 30)
+
+        // Zielposition auswürfeln ---------------------------------------------
+        void Direction()
         {
-            searchitem = false;
+            waittimer = Random.Range(0, 10);
+            placeholderX = Random.Range(-myMapgenerator.mapWidth / 10, myMapgenerator.mapWidth / 10);
+            placeholderY = Random.Range(-myMapgenerator.mapHeight / 10, myMapgenerator.mapHeight / 10);
         }
-        if (Item != null && transform.position == Item.transform.position)
+        //----------------------------------------------------------------------
+
+        // Damage
+        private void TakeDamage(float damage)
         {
-            Items myItems = Item.GetComponent<Items>();
-            // int value = myItems.essenswerte[Item.name];
-            int value = 0;
-            myItems.animalfood.TryGetValue(Item.name, out value);
-            if (value > 0)
+            if (timer <= 0)
             {
-                this.SendMessage("Hungertimer", value);
-                Destroy(Item);
-                Item = null;
-                value = 0;
+                //print(this.name + " Damage" + damage);
+                currentHealth -= damage;
+                if (currentHealth < 0)
+                {
+                    currentHealth = 0;
+                }
+                Color tmp = this.GetComponent<SpriteRenderer>().color;
+                this.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0, 255);
+                Invoke("resetDamageColor", 0.2f);
+                if (!death && searchitem == false)
+                    movetoplayer = true;
+                timer = 1.5f;
             }
         }
 
-
-    }
-
-    void Hide()
-    {
-        if (hiding == true && distanceH < 2)
-        {
-            attacking = false;
-            speed = 1;
-            Targetposition = Attacker.transform.position;
-            distanceH = Vector2.Distance(this.transform.position, Attacker.transform.position);
-            if (this.transform.position.x > Attacker.transform.position.x)
-            {
-                Targetposition += new Vector3(2, 0, 0);
-                setleft = false;
-                animator.SetBool("run", true);
-            }
-            if (this.transform.position.x < Attacker.transform.position.x)
-            {
-                Targetposition += new Vector3(-2, 0, 0);
-                setleft = true;
-                animator.SetBool("run", true);
-            }
-
-            float step = speed * Time.deltaTime;
-            this.transform.position = Vector3.MoveTowards(this.transform.position, Targetposition, step);
-        }
-        if (distanceH >= 2)
-        {
-            animator.SetBool("run", false);
-            hiding = false;
-            attackrange = false;
-        }
-    }
-
-    void Death()
-    {
-        if (death == true)
-        {
-            animator.SetBool("dead", true);
-
-            disappeartimer -= Time.deltaTime;
-            if (disappeartimer <= 0)
-            {
-                Itemdrop();
-                Destroy(transform.gameObject);
-            }
-        }
-    }
-
-    // Zielposition auswürfeln ---------------------------------------------
-    void Direction()
-    {
-        waittimer = Random.Range(0, 10);
-        placeholderX = Random.Range(-myMapgenerator.mapWidth / 10, myMapgenerator.mapWidth / 10);
-        placeholderY = Random.Range(-myMapgenerator.mapHeight / 10, myMapgenerator.mapHeight / 10);
-    }
-    //----------------------------------------------------------------------
-
-    // Damage
-    private void TakeDamage(float damage)
-    {
-
-        print(this.name+" Damage" + damage);
-        currentHealth -= damage;
-        if (currentHealth < 0)
-        {
-            currentHealth = 0;
-        }
-        Color tmp = this.GetComponent<SpriteRenderer>().color;
-        this.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0, 255);
-        Invoke("resetDamageColor", 0.2f);
-        if (!death)
-            movetoplayer = true;
-    }
-
-    // Get Attacker
+        // Get Attacker
 
         private void GetAttacker(GameObject Engager)
         {
-        Attacker = Engager;
+            Attacker = Engager;
         }
-    //-----------------------------------------------------------------------
+        //-----------------------------------------------------------------------
 
-    // Hungertimer
-    private void Hungertimer(float hunger)
-    {
-        currentHunger += hunger;
-        currentHunger -= Time.deltaTime * 0.05f;
-        if (currentHunger > 100)
-            currentHunger = 100;
-        if (currentHunger < 0)
-            currentHunger = 0;
-    }
-    //-----------------------------------------------------------------------
-
-    // Damage from Weapon
-    void OnTriggerEnter2D(Collider2D Engager)
-    {
-        // Von Spieler attakiert
-        if (myCtrl.attack == true && Engager.CompareTag("weapon") && Engager is PolygonCollider2D && !death)
+        // Hungertimer
+        private void Hungertimer(float hunger)
         {
-            Attacker = Charakter;
-            Items myEngager = Engager.GetComponent<Items>();
-            int value = 0;
-            if (myEngager.Weapon.TryGetValue(Engager.name, out value))
+            currentHunger += hunger;
+            currentHunger -= Time.deltaTime * 0.05f;
+            if (currentHunger > 100)
+                currentHunger = 100;
+            if (currentHunger < 0)
+                currentHunger = 0;
+        }
+        //-----------------------------------------------------------------------
+
+        // Damage from Weapon
+        void OnTriggerEnter2D(Collider2D Engager)
+        {
+            // Von Spieler attakiert
+            if (myCtrl.attack == true && Engager.CompareTag("weapon") && Engager is PolygonCollider2D && !death)
             {
-                TakeDamage(value);
+                Attacker = Charakter;
+                Items myEngager = Engager.GetComponent<Items>();
+                int value = 0;
+                if (myEngager.Weapon.TryGetValue(Engager.name, out value))
+                {
+                    TakeDamage(value);
+                }
             }
         }
-    }
 
-    // Rote Damage Anzeige zurücksetzen
-    void resetDamageColor()
-    {
-        this.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
-    }
-
-    void SetAttackingtrue()
-    {
-        attacking = true;
-    }
-    void SetAttackingfalse()
-    {
-        attacking = false;
-    }
-
-    // Item drop
-    void Itemdrop()
-    {
-        int hide;
-        int meat;
-        int feather;
-        int linen;
-        int egg;
-        int wool;
-
-        if (Hidedrop.TryGetValue(this.name, out hide))
-        { fellcounter = hide; }
-        if (Meatdrop.TryGetValue(this.name, out meat))
-        { fleischcounter = meat; }
-        if (Featherdrop.TryGetValue(this.name, out feather))
-        { federcounter = feather; }
-        if (Linendrop.TryGetValue(this.name, out linen))
-        { linencounter = linen; }
-        if (Eggdrop.TryGetValue(this.name, out egg))
-        { eggcounter = egg; }
-        if (Wooldrop.TryGetValue(this.name, out wool))
-        { woolcounter = wool; }
-
-
-        if (fleischcounter != 0)
-            InstantItem("Meat", fleischcounter);
-        if (fellcounter != 0)
-            InstantItem("Hide", federcounter);
-        if (federcounter != 0)
-            InstantItem("Feather", federcounter);
-        if (linencounter != 0)
-            InstantItem("Linen", linencounter);
-        if (eggcounter != 0)
-            InstantItem("Egg", eggcounter);
-        if (woolcounter != 0)
-            InstantItem("Wool", woolcounter);
-    }
-
-    public void InstantItem(string name, int amount)
-    {
-        for (int i = 0; i < amount; i++)
+        // Rote Damage Anzeige zurücksetzen
+        void resetDamageColor()
         {
-            float placeX = Random.Range(-0.2f, 0.2f);
-            float placeY = Random.Range(-0.2f, 0.2f);
-            GameObject Spawn = Instantiate(Prefabliste.Instance().GetGameObject(name), new Vector3(0, 0, 0), Quaternion.identity);
-            Spawn.transform.position = this.transform.position;
-            Spawn.transform.position += new Vector3(placeX, placeY, 0);
-            Spawn.name = name;
+            this.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
         }
-    }
 
-}
+        void SetAttackingtrue()
+        {
+            attacking = true;
+        }
+        void SetAttackingfalse()
+        {
+            attacking = false;
+        }
+
+        // Item drop
+        void Itemdrop()
+        {
+            int hide;
+            int meat;
+            int feather;
+            int linen;
+            int egg;
+            int wool;
+
+            if (Hidedrop.TryGetValue(this.name, out hide))
+            { fellcounter = hide; }
+            if (Meatdrop.TryGetValue(this.name, out meat))
+            { fleischcounter = meat; }
+            if (Featherdrop.TryGetValue(this.name, out feather))
+            { federcounter = feather; }
+            if (Linendrop.TryGetValue(this.name, out linen))
+            { linencounter = linen; }
+            if (Eggdrop.TryGetValue(this.name, out egg))
+            { eggcounter = egg; }
+            if (Wooldrop.TryGetValue(this.name, out wool))
+            { woolcounter = wool; }
+
+
+            if (fleischcounter != 0)
+                InstantItem("Meat", fleischcounter);
+            if (fellcounter != 0)
+                InstantItem("Hide", federcounter);
+            if (federcounter != 0)
+                InstantItem("Feather", federcounter);
+            if (linencounter != 0)
+                InstantItem("Linen", linencounter);
+            if (eggcounter != 0)
+                InstantItem("Egg", eggcounter);
+            if (woolcounter != 0)
+                InstantItem("Wool", woolcounter);
+        }
+
+        public void InstantItem(string name, int amount)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                float placeX = Random.Range(-0.2f, 0.2f);
+                float placeY = Random.Range(-0.2f, 0.2f);
+                GameObject Spawn = Instantiate(Prefabliste.Instance().GetGameObject(name), new Vector3(0, 0, 0), Quaternion.identity);
+                Spawn.transform.position = this.transform.position;
+                Spawn.transform.position += new Vector3(placeX, placeY, 0);
+                Spawn.name = name;
+            }
+        }
+
+    }

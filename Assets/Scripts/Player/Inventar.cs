@@ -202,7 +202,7 @@ public class Inventar : MonoBehaviour {
             CursorIndex -= 20;
         } 
 
-            // Item von Cursor in Handwerk verschieben
+         /*   // Item von Cursor in Handwerk verschieben
             if (Input.GetKeyDown(KeyCode.Return) && CursorIndex < 21)    //X
         {
             string count = CursorIndex.ToString();
@@ -234,7 +234,7 @@ public class Inventar : MonoBehaviour {
                     Child.transform.SetParent(Craftingslots.transform);
                 }
             }
-        }
+        }*/
 
         // Item von HandwerksCursor in Inventar verschieben
 

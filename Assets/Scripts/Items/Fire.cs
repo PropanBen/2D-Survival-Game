@@ -59,18 +59,16 @@ public class Fire : MonoBehaviour {
         {
             animator.SetBool("fire", true);
 
-            if (animator.GetBool("fire"))
+            if (animator.GetBool("fire") && firetrigger == false)
             {
                 SoundManager.SendMessage("PlaySound", "firesound");
             }
-            else
-            {
-                SoundManager.SendMessage("PlaySound", "stop");
-            }
+            firetrigger = true;
         }
         if (col.CompareTag("waterfillable") && myCtrl.Wftiming == true && myCtrl.Wftimer < 0.5f
             && animator.GetBool("fire"))
         {
+            firetrigger = false;
             animator.SetBool("fire", false);
             SoundManager.SendMessage("PlaySound", "fireout");
         }
@@ -142,7 +140,11 @@ public class Fire : MonoBehaviour {
                 Destroy((FuelChild as Transform).gameObject);
             }
         }
-        else { animator.SetBool("fire", false); }
+        else
+        {
+            firetrigger = false;
+            animator.SetBool("fire", false);
+        }
     }
 
     public string ChooseProduct(string name)

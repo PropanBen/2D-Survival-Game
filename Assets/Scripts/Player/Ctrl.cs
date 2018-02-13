@@ -100,6 +100,12 @@ public class Ctrl : MonoBehaviour
     void Update()
     {
 
+        if(death)
+        {
+            animator.SetBool("pickaxeR", false);
+            animator.SetBool("pickaxeL", false);
+        }
+
         childcounterM = Mouse.transform.childCount;
         childcounterR = Rightarm.transform.childCount;
         childcounterL = Leftarm.transform.childCount;

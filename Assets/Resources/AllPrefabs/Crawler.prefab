@@ -102,6 +102,7 @@ MonoBehaviour:
   NightDay: {fileID: 0}
   Animal: {fileID: 0}
   myCtrl: {fileID: 0}
+  speed: 0.5
   animator: {fileID: 0}
   Targetposition: {x: 0, y: 0, z: 0}
   Charakter: {fileID: 0}
@@ -112,6 +113,7 @@ MonoBehaviour:
   searchitem: 0
   attacking: 0
   attackrange: 0
+  animaldeath: 0
   currentHunger: 0
   layermaskitems:
     serializedVersion: 2
@@ -128,6 +130,7 @@ MonoBehaviour:
   linencounter: 0
   eggcounter: 0
   woolcounter: 0
+  timer: 1.5
 --- !u!212 &212675448352621006
 SpriteRenderer:
   m_ObjectHideFlags: 1
