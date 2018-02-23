@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class SoundSettings : MonoBehaviour {
 
     public GameObject Obj;
     public AudioSource Music;
     public AudioClip axt, treefall, bite, fishstruggle, Throw, waterfill, brokentool,
                      closechest, drinking, eating, fireout, firesound, flop, heal, openchest,
-                     startfire, stonebreak,pickaxe;
+                     startfire, stonebreak, pickaxe;
     public AudioClip Track1, Track2, Track3, Track4;
     public List<AudioClip> Player = new List<AudioClip>();
     public int childcounter;
+
 
 	// Use this for initialization
 	void Start ()
@@ -47,7 +49,7 @@ public class SoundSettings : MonoBehaviour {
         }
     }
 
-    public void PlaySound(string sound)
+    public int PlaySound(string sound)
     {
         Obj = new GameObject(sound);
         Obj.AddComponent<AudioSource>();
@@ -57,7 +59,7 @@ public class SoundSettings : MonoBehaviour {
 
         switch (sound)
         {
-            case "axt": audiosource.clip = axt; break;
+            case "axt" : audiosource.clip = axt; break;
             case "pickaxe": audiosource.clip = pickaxe; break;
             case "stonebreak": audiosource.clip = stonebreak; break;
             case "treefall": audiosource.clip = treefall; break;
@@ -81,6 +83,8 @@ public class SoundSettings : MonoBehaviour {
         }
         if (!audiosource.isPlaying)
             audiosource.Play();
+
+        return Obj.transform.GetInstanceID();
     }
 
     public void PlayMusic()

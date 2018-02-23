@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Fire : MonoBehaviour {
 
+    public SoundSettings mySoundsettings;
+    public GameObject Soundmanager;
     public Ctrl myCtrl;
     private GameObject Charakter;
     public GameObject Feuer;
@@ -18,17 +20,19 @@ public class Fire : MonoBehaviour {
     private Transform RoastChild;
     private int fuelcounter;
     private int roastcounter;
-    private bool firetrigger = true;
+    private bool firetrigger;
     private float roasttimer = 20f;
     private float fueltimer = 2f;
     private float fueltimertmp;
     private bool gettimer = true;
     public string item;
+    public int id;
 
     // Use this for initialization
     void Start ()
     {
         SoundManager = GameObject.Find("SoundManager");
+        mySoundsettings = SoundManager.GetComponent<SoundSettings>();
         Feuer.transform.GetComponent<SpriteRenderer>().sprite = null;
         animator = GetComponent<Animator>();
         Charakter = GameObject.Find("Charakter");
@@ -61,18 +65,18 @@ public class Fire : MonoBehaviour {
 
             if (animator.GetBool("fire") && firetrigger == false)
             {
-                SoundManager.SendMessage("PlaySound", "firesound");
+                id = mySoundsettings.PlaySound("firesound");
             }
             firetrigger = true;
         }
-        if (col.CompareTag("waterfillable") && myCtrl.Wftiming == true && myCtrl.Wftimer < 0.5f
+        if (col.CompareTag("drinkable") && myCtrl.Wftiming == true && myCtrl.Wftimer < 0.5f
             && animator.GetBool("fire"))
         {
             firetrigger = false;
             animator.SetBool("fire", false);
-            SoundManager.SendMessage("PlaySound", "fireout");
+            Destroy(MatchId(id));
+            mySoundsettings.PlaySound("fireout");
         }
-
     }
 
     void Roasting()
@@ -140,10 +144,12 @@ public class Fire : MonoBehaviour {
                 Destroy((FuelChild as Transform).gameObject);
             }
         }
-        else
+        else if(firetrigger)
         {
-            firetrigger = false;
-            animator.SetBool("fire", false);
+                firetrigger = false;
+                Destroy(MatchId(id));
+                mySoundsettings.PlaySound("fireout");
+                animator.SetBool("fire", false);
         }
     }
 
@@ -165,5 +171,24 @@ public class Fire : MonoBehaviour {
             default: Debug.Log("error"); break;
         }
         return item;
+    }
+
+    public GameObject MatchId(int id)
+    {
+        Transform Obj;
+        GameObject GO = null;
+
+        int childcounter = SoundManager.transform.childCount;
+        if(childcounter>0)
+
+            for (int i = 0; i < childcounter; i++)
+            {
+                Obj = SoundManager.transform.GetChild(i);
+                if(id == Obj.transform.GetInstanceID())
+                {
+                    GO = Obj.gameObject;
+                }
+            }     
+        return GO;
     }
 }

@@ -28,6 +28,7 @@ TagManager:
   - mealtable
   - heal
   - Animal
+  - drinkable
   layers:
   - Default
   - TransparentFX

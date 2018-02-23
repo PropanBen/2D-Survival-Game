@@ -337,6 +337,12 @@ public class AnimalCtrl : MonoBehaviour
             Targetposition = new Vector3(placeholderX, placeholderY, 0);
             float step = speed * Time.deltaTime;
             this.transform.position = Vector3.MoveTowards(this.transform.position, Targetposition, step);
+
+            if (this.transform.position.x > Targetposition.x)
+            {
+                setleft = true;
+            }
+            else { setleft = false; }
         }
     }
 

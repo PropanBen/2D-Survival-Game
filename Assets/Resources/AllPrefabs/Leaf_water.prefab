@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114243751750984164}
   m_Layer: 0
   m_Name: Leaf_water
-  m_TagString: Untagged
+  m_TagString: drinkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,6 +95,7 @@ MonoBehaviour:
   isgrounded: 0
   Charakter: {fileID: 0}
   PlayerCursor: {fileID: 0}
+  SoundManager: {fileID: 0}
   Icon: {fileID: 21300000, guid: 6507fb2b795d11b4698cf9591798e917, type: 3}
   currentDurability: 100
   maxDurability: 100
@@ -103,6 +104,7 @@ MonoBehaviour:
   Drinkinglist: []
   Waterfilllist: []
   Childlist: []
+  spritedrop: {fileID: 0}
 --- !u!212 &212774445461014334
 SpriteRenderer:
   m_ObjectHideFlags: 1
