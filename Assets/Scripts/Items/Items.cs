@@ -158,6 +158,9 @@ public class Items : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (currentDurability <= 0)
+            Destroy(this.gameObject);
+
         Flip();
 
         // Item drop---------------------------------------------------------------------

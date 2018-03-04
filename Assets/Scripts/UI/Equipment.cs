@@ -15,7 +15,7 @@ public class Equipment
     private GameObject Leftlegupper;
     private GameObject Rightleg;
     private GameObject Leftleg;
-    public Dictionary<string, int> Armour;
+    public Dictionary<string, float> Armour;
 
 
     public static Equipment Instance
@@ -33,7 +33,7 @@ public class Equipment
         // Armour--------------------------------------------------
    
         //Leather
-        Armour = new Dictionary<string, int>();
+        Armour = new Dictionary<string, float>();
         Armour.Add("Head_Leather", 10);
         Armour.Add("Body_Leather", 20);
         Armour.Add("Rightshoulder_Leather", 10);
@@ -69,7 +69,7 @@ public class Equipment
             else
             {
                 Items myItems = Head.GetComponent<Items>();
-                GameObject.Find("HeadItemUI").GetComponentsInChildren<Text>()[0].text = "" + Armour[Head.name];
+                GameObject.Find("HeadItemUI").GetComponentsInChildren<Text>()[0].text = "" + ConvertAmour(Head);  
             }
         }
         get
@@ -87,7 +87,7 @@ public class Equipment
             else
             {
                 Items myItems = Body.GetComponent<Items>();
-                GameObject.Find("BodyItemUI").GetComponentsInChildren<Text>()[0].text = "" + Armour[Body.name];
+                GameObject.Find("BodyItemUI").GetComponentsInChildren<Text>()[0].text = "" + ConvertAmour(Body);
             }
         }
     }
@@ -101,7 +101,7 @@ public class Equipment
             else
             {
                 Items myItems = Rightshoulder.GetComponent<Items>();
-                GameObject.Find("RightshoulderItemUI").GetComponentsInChildren<Text>()[0].text = "" + Armour[Rightshoulder.name];
+                GameObject.Find("RightshoulderItemUI").GetComponentsInChildren<Text>()[0].text = "" + ConvertAmour(Rightshoulder);
             }
         }
     }
@@ -115,7 +115,7 @@ public class Equipment
             else
             {
                 Items myItems = Leftshoulder.GetComponent<Items>();
-                GameObject.Find("LeftshoulderItemUI").GetComponentsInChildren<Text>()[0].text = "" + Armour[Leftshoulder.name];
+                GameObject.Find("LeftshoulderItemUI").GetComponentsInChildren<Text>()[0].text = "" + ConvertAmour(Leftshoulder);
             }
         }
     }
@@ -129,7 +129,7 @@ public class Equipment
             else
             {
                 Items myItems = Rightarm.GetComponent<Items>();
-                GameObject.Find("RightarmItemUI").GetComponentsInChildren<Text>()[0].text = "" + Armour[Rightarm.name];
+                GameObject.Find("RightarmItemUI").GetComponentsInChildren<Text>()[0].text = "" +ConvertAmour(Rightarm);
             }
         }
     }
@@ -143,7 +143,7 @@ public class Equipment
             else
             {
                 Items myItems = Leftarm.GetComponent<Items>();
-                GameObject.Find("LeftarmItemUI").GetComponentsInChildren<Text>()[0].text = "" + Armour[Leftarm.name];
+                GameObject.Find("LeftarmItemUI").GetComponentsInChildren<Text>()[0].text = "" + ConvertAmour(Leftarm);
             }
         }
     }
@@ -157,7 +157,7 @@ public class Equipment
             else
             {
                 Items myItems = Rightlegupper.GetComponent<Items>();
-                GameObject.Find("RightlegupperItemUI").GetComponentsInChildren<Text>()[0].text = "" + Armour[Rightlegupper.name];
+                GameObject.Find("RightlegupperItemUI").GetComponentsInChildren<Text>()[0].text = "" + ConvertAmour(Rightlegupper);
             }
         }
     }
@@ -171,7 +171,7 @@ public class Equipment
             else
             {
                 Items myItems = Leftlegupper.GetComponent<Items>();
-                GameObject.Find("LeftlegupperItemUI").GetComponentsInChildren<Text>()[0].text = "" + Armour[Leftlegupper.name];
+                GameObject.Find("LeftlegupperItemUI").GetComponentsInChildren<Text>()[0].text = "" + ConvertAmour(Leftlegupper);
             }
         }
     }
@@ -185,7 +185,7 @@ public class Equipment
             else
             {
                 Items myItems = Rightleg.GetComponent<Items>();
-                GameObject.Find("RightlegItemUI").GetComponentsInChildren<Text>()[0].text = "" + Armour[Rightleg.name];
+                GameObject.Find("RightlegItemUI").GetComponentsInChildren<Text>()[0].text = "" + ConvertAmour(Rightleg);
             }
         }
     }
@@ -199,7 +199,7 @@ public class Equipment
             else
             {
                 Items myItems = Leftleg.GetComponent<Items>();
-                GameObject.Find("LeftlegItemUI").GetComponentsInChildren<Text>()[0].text = "" + Armour[Leftleg.name];
+                GameObject.Find("LeftlegItemUI").GetComponentsInChildren<Text>()[0].text = "" + ConvertAmour(Leftleg);
             }
         }
     }
@@ -245,7 +245,7 @@ public class Equipment
 
     public void CalcArmourValues()
     {
-        int armourSum = 0;
+        float armourSum = 0;
         armourSum += ReadValue(GameObject.Find("HeadItemUI").transform.GetChild(0).GetComponentsInChildren<Text>()[0].text);
         armourSum += ReadValue(GameObject.Find("BodyItemUI").transform.GetChild(0).GetComponentsInChildren<Text>()[0].text);
         armourSum += ReadValue(GameObject.Find("RightshoulderItemUI").transform.GetChild(0).GetComponentsInChildren<Text>()[0].text);
@@ -260,10 +260,10 @@ public class Equipment
         armourValueTotal = armourSum;
     }
 
-    private int ReadValue(string text)
+    private float ReadValue(string text)
     {
         if (text == "") return 0;       
-            int reValue = int.Parse(text);
+            float reValue = float.Parse(text);
             return reValue;       
     }
 
@@ -280,7 +280,7 @@ public class Equipment
     {
         float armourDamage = armourValueTotal - damage;
 
-        ChooseArmour(damage * 0.1f);
+        ChooseArmour(damage * 1f); //0.1f
 
         if(armourDamage>0)
         {
@@ -312,5 +312,13 @@ public class Equipment
         Child.GetComponentInChildren<Items>().currentDurability -= durabilityDamage;
 
 
+    }
+
+    public float ConvertAmour(GameObject Obj)
+    {
+        Items myItems = Obj.GetComponent<Items>();
+        float value = (Armour[Obj.name]);
+        float calc = (value / 100) * myItems.currentDurability;
+        return calc;
     }
 }

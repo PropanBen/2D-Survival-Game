@@ -68,6 +68,27 @@ public class Rezepte : MonoBehaviour
         Otherlist.Add(Healpotion);
         Otherlist.Add(Torch);
         Otherlist.Add(Spawnpole);
+        Otherlist.Add(Leather);
+        Kleidungsliste.Add(Head_Leather);
+        Kleidungsliste.Add(Body_Leather);
+        Kleidungsliste.Add(Rightshoulder_Leather);
+        Kleidungsliste.Add(Leftshoulder_Leather);
+        Kleidungsliste.Add(Rightarm_Leather);
+        Kleidungsliste.Add(Leftarm_Leather);
+        Kleidungsliste.Add(Rightlegupper_Leather);
+        Kleidungsliste.Add(Leftlegupper_Leather);
+        Kleidungsliste.Add(Rightleg_Leather);
+        Kleidungsliste.Add(Leftleg_Leather);
+        Kleidungsliste.Add(Head_Iron);
+        Kleidungsliste.Add(Body_Iron);
+        Kleidungsliste.Add(Rightshoulder_Iron);
+        Kleidungsliste.Add(Leftshoulder_Iron);
+        Kleidungsliste.Add(Rightarm_Iron);
+        Kleidungsliste.Add(Leftarm_Iron);
+        Kleidungsliste.Add(Rightlegupper_Iron);
+        Kleidungsliste.Add(Leftlegupper_Iron);
+        Kleidungsliste.Add(Rightleg_Iron);
+        Kleidungsliste.Add(Leftleg_Iron);
     }
 
     void Update()
@@ -182,6 +203,52 @@ public Rezepte(string name,int LvL, int rescount,string buttonnumber, string Res
 
     // Kleidungsrezepte  Dropdownmenu value = 3
 
+    public static Rezepte Head_Leather = new Rezepte("Head_Leather", 0, 1, "1", "Leather", 1, "Leather Helm for the Head \n" +"Armour 10\n" +
+                                                    "Resources needed : 1x Leather");
+    public static Rezepte Body_Leather = new Rezepte("Body_Leather", 0, 1, "2", "Leather", 5, "Leather Body for the Body \n" +"Armour 20\n" +
+                                                "Resources needed : 5x Leather");
+    public static Rezepte Leftshoulder_Leather = new Rezepte("Leftshoulder_Leather", 0, 1, "3", "Leather", 2, "Leather Shoulder for the left Schoulder \n" +
+                                            "Armour 10\n"+ "Resources needed : 2x Leather");
+    public static Rezepte Rightshoulder_Leather = new Rezepte("Rightshoulder_Leather", 0, 1, "4", "Leather", 2, "Leather Shoulder for the right Schoulder \n" +
+                                          "Armour 10\n" + "Resources needed : 2x Leather");
+    public static Rezepte Leftarm_Leather = new Rezepte("Leftarm_Leather", 0, 1, "5", "Leather", 2, "Leather armour for the left hand \n" +
+                                   "Armour 5\n" + "Resources needed : 2x Leather");
+    public static Rezepte Rightarm_Leather = new Rezepte("Rightarm_Leather", 0, 1, "6", "Leather", 2, "Leather armour for the right hand \n" +
+                               "Armour 5\n" + "Resources needed : 2x Leather");
+    public static Rezepte Leftlegupper_Leather = new Rezepte("Leftlegupper_Leather", 0, 1, "7", "Leather", 2, "Leather armour for the lrft upper leg \n" +
+                                       "Armour 10\n" + "Resources needed : 2x Leather");
+    public static Rezepte Rightlegupper_Leather = new Rezepte("Rightlegupper_Leather", 0, 1, "8", "Leather", 2, "Leather armour for the right upper leg \n" +
+                                   "Armour 10\n" + "Resources needed : 2x Leather");
+    public static Rezepte Leftleg_Leather = new Rezepte("Leftleg_Leather", 0, 1, "9", "Leather", 2, "Leather armour for the left leg \n" +
+                           "Armour 20\n" + "Resources needed : 2x Leather");
+    public static Rezepte Rightleg_Leather = new Rezepte("Rightleg_Leather", 0, 1, "10", "Leather", 2, "Leather armour for the right leg \n" +
+                               "Armour 20\n" + "Resources needed : 2x Leather");
+
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+    public static Rezepte Head_Iron = new Rezepte("Head_Iron", 0, 1, "11", "Ironingot", 1, "Iron Helm for the Head \n" + "Armour 10\n" +
+                                                "Resources needed : 1x Ironingot");
+    public static Rezepte Body_Iron = new Rezepte("Body_Iron", 0, 1, "12", "Ironingot", 5, "Iron Body for the Body \n" + "Armour 20\n" +
+                                                "Resources needed : 5x Ironingot");
+    public static Rezepte Leftshoulder_Iron = new Rezepte("Leftshoulder_Iron", 0, 1, "13", "Ironingot", 2, "Iron Shoulder for the left Schoulder \n" +
+                                            "Armour 10\n" + "Resources needed : 2x Ironingot");
+    public static Rezepte Rightshoulder_Iron = new Rezepte("Rightshoulder_Iron", 0, 1, "14", "Ironingot", 2, "IronShoulder for the right Schoulder \n" +
+                                          "Armour 10\n" + "Resources needed : 2x Ironingot");
+    public static Rezepte Leftarm_Iron = new Rezepte("Leftarm_Iron", 0, 1, "15", "Ironingot", 2, "Iron armour for the left hand \n" +
+                                   "Armour 5\n" + "Resources needed : 2x Ironingot");
+    public static Rezepte Rightarm_Iron = new Rezepte("Rightarm_Iron", 0, 1, "16", "Ironingot", 2, "Iron armour for the right hand \n" +
+                               "Armour 5\n" + "Resources needed : 2x Ironingot");
+    public static Rezepte Leftlegupper_Iron = new Rezepte("Leftlegupper_Iron", 0, 1, "17", "Ironingot", 2, "Iron armour for the left upper leg \n" +
+                                       "Armour 10\n" + "Resources needed : 2x Ironingot");
+    public static Rezepte Rightlegupper_Iron = new Rezepte("Rightlegupper_Iron", 0, 1, "18", "Ironingot", 2, "Iron armour for the right upper leg \n" +
+                                   "Armour 10\n" + "Resources needed : 2x Ironingot");
+    public static Rezepte Leftleg_Iron = new Rezepte("Leftleg_Iron", 0, 1, "19", "Ironingot", 2, "Iron armour for the left leg \n" +
+                           "Armour 20\n" + "Resources needed : 2x Ironingot");
+    public static Rezepte Rightleg_Iron = new Rezepte("Rightleg_Iron", 0, 1, "20", "Ironingot", 2, "Iron armour for the right leg \n" +
+                               "Armour 20\n" + "Resources needed : 2x Ironingot");
+
+
+
+
     // Gebäuderezepte  Dropdownmenu value = 4
 
     public static Rezepte Chest = new Rezepte("Chest", 0, 3, "1", "Rope", 1, "Twig", 5, "Stone", 1, "You can Store Items in the Chest." +
@@ -237,6 +304,8 @@ public Rezepte(string name,int LvL, int rescount,string buttonnumber, string Res
                                 "Resources needed :\n1xTwig 1xResin");
     public static Rezepte Spawnpole = new Rezepte("Spawnpole", 0, 1, "8", "Twig", 3, "Use to set your Respawnpoint\n" +
                             "Resources needed :\n3xTwig");
+    public static Rezepte Leather = new Rezepte("Leather", 0, 1, "9", "Hide", 3, "For making Leather\n" +
+                             "Resources needed :\n 3xHide");
 
 
 

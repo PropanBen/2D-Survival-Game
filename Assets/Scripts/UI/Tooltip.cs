@@ -48,9 +48,9 @@ public class Tooltip : MonoBehaviour {
             Tooltippanel.SetActive(true);
             if(childcounterSlot > 1)
             Child = Slot.gameObject.transform.GetChild(1);
-            if(this.name.Contains("Rightarm"))
+            if(childcounterR >0 && this.name.Contains("Rightarm"))
             Child = Rightarm.gameObject.transform.GetChild(0);
-            if (this.name.Contains("Leftarm"))
+            if (childcounterL >0 && this.name.Contains("Leftarm"))
             Child = Leftarm.gameObject.transform.GetChild(0);
             myItems = Child.GetComponent<Items>();
             currentDurability = Child.GetComponent<Items>().currentDurability;

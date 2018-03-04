@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Playerbars : MonoBehaviour {
 
     public Ctrl myCtrl;
+    public Equipment myEquipment;
     private float maxHealth = 100;
     public float currentHealth = 100;
     private float maxArmour = 100;
@@ -124,6 +125,7 @@ public class Playerbars : MonoBehaviour {
     {
         if (timer <= 0)
         {
+           // Equipment.Instance.CalcArmourValues();
             currentHealth -= Equipment.Instance.ReduceDurability(damage);
             if (currentHealth < 0)
             {
@@ -142,7 +144,7 @@ public class Playerbars : MonoBehaviour {
         }
         // Selbstredend
            UpdateArmourbar();
-           UpdateHealthbar();       
+           UpdateHealthbar();
     }
 
     private void SetArmour()
@@ -158,7 +160,6 @@ public class Playerbars : MonoBehaviour {
         if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
-            print("Du bist komplett geheilt");
         }
         UpdateHealthbar();
     } 
