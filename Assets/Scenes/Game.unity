@@ -11015,7 +11015,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4162569028467616, guid: 836a5c8b191e6c2418e29290321726c3, type: 2}
       propertyPath: m_RootOrder
-      value: 66
+      value: 65
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 836a5c8b191e6c2418e29290321726c3, type: 2}
@@ -12594,7 +12594,7 @@ Transform:
   - {fileID: 858691449}
   - {fileID: 123123296}
   m_Father: {fileID: 0}
-  m_RootOrder: 65
+  m_RootOrder: 66
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1227833201
 MonoBehaviour:
@@ -15857,7 +15857,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1521558636 stripped
 GameObject:
@@ -16831,7 +16831,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4064175704880234, guid: 4767b57819542bf44944fb5b3389b111, type: 2}
       propertyPath: m_RootOrder
-      value: 28
+      value: 27
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4767b57819542bf44944fb5b3389b111, type: 2}
@@ -17908,7 +17908,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4813808887714812, guid: 3209c36376e4c274db84de183865ec93, type: 2}
       propertyPath: m_RootOrder
-      value: 24
+      value: 23
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3209c36376e4c274db84de183865ec93, type: 2}
@@ -24172,7 +24172,7 @@ Transform:
   m_Children:
   - {fileID: 2066273615}
   m_Father: {fileID: 0}
-  m_RootOrder: 27
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2106531808
 MonoBehaviour:
@@ -24185,6 +24185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 995439963b5970e4b97cb2276a22eb0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SFX: {fileID: 243431764820327288, guid: 083fb0bb59ad2ca4c83964d0566769a6, type: 2}
   Obj: {fileID: 0}
   Music: {fileID: 2066273616}
   axt: {fileID: 8300000, guid: 59cf9933e9da374419af1a2783d4de47, type: 3}

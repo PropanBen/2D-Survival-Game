@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 
 public class SoundSettings : MonoBehaviour {
 
+    public AudioMixerGroup SFX;
     public GameObject Obj;
     public AudioSource Music;
     public AudioClip axt, treefall, bite, fishstruggle, Throw, waterfill, brokentool,
@@ -55,6 +57,10 @@ public class SoundSettings : MonoBehaviour {
         Obj.AddComponent<AudioSource>();
         AudioSource audiosource = Obj.GetComponent<AudioSource>();
         Obj.transform.SetParent(this.transform);
+        audiosource.outputAudioMixerGroup = SFX;
+       // audiosource.volume = 1.0f;
+ 
+        
 
 
         switch (sound)

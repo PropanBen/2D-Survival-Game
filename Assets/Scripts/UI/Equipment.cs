@@ -280,11 +280,12 @@ public class Equipment
     {
         float armourDamage = armourValueTotal - damage;
 
-        ChooseArmour(damage * 1f); //0.1f
+        ChooseArmour(damage * 1f);
 
         if(armourDamage>0)
         {
-            armourValueTotal -= damage;
+            CalcArmourValues();
+           // armourValueTotal -= damage;
             damage = 0;
         }
         else
@@ -303,14 +304,14 @@ public class Equipment
         Items Child = GameObject.Find("CharakterSlots").transform.GetChild(value).GetComponentInChildren<Items>();
         while (Child == null)
         {
-             loopcounter++; 
-             value++; 
-             if(value >= 10) { value = 0; }
-             Child = GameObject.Find("CharakterSlots").transform.GetChild(value).GetComponentInChildren<Items>();
-             if(loopcounter >= 10) { return; }
+                loopcounter++;
+                value++;
+                if (value >= 10) { value = 0; }
+                Child = GameObject.Find("CharakterSlots").transform.GetChild(value).GetComponentInChildren<Items>();
+                if (loopcounter >= 10) { return; }           
         }
         Child.GetComponentInChildren<Items>().currentDurability -= durabilityDamage;
-
+        EquipItem(Child.gameObject);
 
     }
 

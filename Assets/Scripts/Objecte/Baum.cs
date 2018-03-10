@@ -5,17 +5,20 @@ using UnityEngine;
 public class Baum : MonoBehaviour
 {
     public Ctrl myCtrl;
+    public SoundSettings mySoundsettings;
     public GameObject SoundManager;
     public GameObject Charakter;
     public Dictionary<string, int> BaumDurability;
     public Dictionary<string, int> BaumDamage;
     public int currentDurability;
     Animator animator;
+    public int id;
 
 
     void Start()
     {
         SoundManager = GameObject.Find("SoundManager");
+        mySoundsettings = SoundManager.GetComponent<SoundSettings>();
         animator = GetComponent<Animator>();
         Charakter = GameObject.Find("Charakter");
         myCtrl = Charakter.GetComponent<Ctrl>();
@@ -40,7 +43,8 @@ public class Baum : MonoBehaviour
         if (currentDurability <= 0)
         {
             animator.SetBool("fall", true);
-            SoundManager.SendMessage("PlaySound", "treefall");
+            if(id == 0)
+            id = mySoundsettings.PlaySound("treefall");
         }
         if (myCtrl.workrdy == false)
             animator.SetBool("hit", false);
