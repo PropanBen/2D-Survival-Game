@@ -8,6 +8,7 @@ public class Npc : MonoBehaviour {
     public MapGenerator myMapgenerator;
     public GameObject Mapgenerator;
     public Vector3 Targetposition;
+    public Vector3 Target;
     public Animator animator;
     public GameObject Rightarm;
     public GameObject Weapon;
@@ -18,13 +19,16 @@ public class Npc : MonoBehaviour {
     public bool death;
     public bool attacking;
     public bool setleft;
-    public float speed = 1f;
+    private float speed = 0.8f;
     public float waittimer;
     private float placeholderX;
     private float placeholderY;
     private int childcounterR;
-    private float weaponspawntimer = 3f;
+    private float weaponspawntimer = 5f;
     public float distancetoenemy;
+    public bool throwing = false;
+    public float TargetposX;
+    public float TargetposY;
 
 
 
@@ -118,6 +122,35 @@ public class Npc : MonoBehaviour {
             moverandom = false;
             attacking = true;
         }
+        // Speer werfen
+        if(throwing)
+        {
+            if (Weapon != null)
+            {
+                Weapon.transform.SetParent(null);
+                Speer mySpear = Weapon.GetComponent<Speer>();
+                mySpear.flying = true;
+            }
+            Target.x = TargetposX;
+            Target.y= TargetposY;
+            float step = 5 * Time.deltaTime;
+            Weapon.transform.position = Vector2.MoveTowards(Weapon.transform.position, Target, step);
+            Vector3 difference = Target - Weapon.transform.position;
+            difference.Normalize();
+            float rotation_z = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+            Weapon.transform.eulerAngles = new Vector3(0, 0, rotation_z);
+            if (Target.x > this.transform.position.x)
+            {
+                Weapon.transform.rotation = Quaternion.Euler(0f, 0f, rotation_z + 180);
+            }
+            else { Weapon.transform.rotation = Quaternion.Euler(0f, 0f, rotation_z); }
+            if (Weapon.transform.position == Target)
+            {                
+                throwing = false;
+                Destroy(Weapon);
+                Weapon = null;
+            }
+        }
 
 
     }
@@ -163,6 +196,11 @@ public class Npc : MonoBehaviour {
             {
                 animator.SetBool("run", false);
             }
+            if(distancetoenemy <= 2 && childcounterR>0)
+            {
+                animator.SetBool("speernpcR", true);
+            }
+            else { animator.SetBool("speernpcR", false); }
 
 
             float step = speed * Time.deltaTime;
@@ -186,7 +224,15 @@ public class Npc : MonoBehaviour {
             Weapon = Instantiate(Prefabliste.Instance().GetGameObject("Spear"), new Vector3(0, 0, 0), Quaternion.identity);
             Weapon.name = "Spear";
             Weapon.transform.SetParent(Rightarm.transform);
+            Weapon.transform.eulerAngles = new Vector3(0, 0, 0);
             weaponspawntimer = 3f;
         }
+    }
+
+    public void SpearReady()
+    {
+        throwing = true;
+        TargetposX = Enemy.transform.position.x;
+        TargetposY = Enemy.transform.position.y;
     }
 }

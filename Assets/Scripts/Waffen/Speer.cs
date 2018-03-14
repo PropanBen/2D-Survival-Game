@@ -14,6 +14,7 @@ public class Speer : MonoBehaviour {
     private Transform Child;
     private bool throwingR;
     private bool throwingL;
+    public bool flying;
 
     // Use this for initialization
     void Start ()

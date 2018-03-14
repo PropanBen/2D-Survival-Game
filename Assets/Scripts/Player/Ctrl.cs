@@ -573,7 +573,21 @@ public class Ctrl : MonoBehaviour
         }
     }
 
-    public void StartSpearthrow()
+    public void OnTriggerEnter2D(Collider2D Spear)
+    {
+        if(Spear.name == "Spear" && Spear.GetComponent<Items>() != null)
+        {
+            Items mySpear = Spear.GetComponent<Items>();
+            Speer MySpear = Spear.GetComponent<Speer>();
+            int value = 0;
+            if (mySpear.Weapon.TryGetValue(Spear.name, out value) && MySpear.flying)
+            {
+                Charakter.SendMessage("TakeDamage", value);
+            }
+        }
+    }
+
+        public void StartSpearthrow()
     {
         throwthing = true;
     }
