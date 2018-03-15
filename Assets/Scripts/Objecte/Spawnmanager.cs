@@ -33,16 +33,14 @@ public class Spawnmanager : MonoBehaviour {
         ToHavelist.Add("Opossum", 5);
         ToHavelist.Add("Rabbit", 10);
         ToHavelist.Add("Squirrel", 5);
+
+        SpawnTrigger();
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if(Input.GetKeyDown(KeyCode.H))
-        {
-            SpawnTrigger();
-        }
-
+  
     }
 
     public void SpawnTrigger()

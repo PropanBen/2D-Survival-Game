@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Npc : MonoBehaviour {
 
-
+    public Ctrl myCtrl;
+    public GameObject Charakter;
     public MapGenerator myMapgenerator;
     public GameObject Mapgenerator;
     public Vector3 Targetposition;
@@ -29,26 +30,37 @@ public class Npc : MonoBehaviour {
     public bool throwing = false;
     public float TargetposX;
     public float TargetposY;
+    private float disappeartimer = 10f;
+    public Dictionary<int, string> Item;
+    public List<SpriteRenderer> Childlist;
 
 
 
     // Use this for initialization
     void Start()
     {
+        Childlist = new List<SpriteRenderer>();
+        TakeChildstoList(transform);
+        Charakter = GameObject.Find("Charakter");
+        myCtrl = Charakter.GetComponent<Ctrl>();
         animator = GetComponent<Animator>();
         Mapgenerator = GameObject.Find("MapGenerator");
         myMapgenerator = Mapgenerator.GetComponent<MapGenerator>();
         Direction();
         moverandom = true;
+        Item = new Dictionary<int, string>();
+        Item[1] = "Diamond";
     }
 
     // Update is called once per frame
     void Update()
     {
+
         // Funktionen ausführen
         MoveRandom();
         SpawnWeapon();
         AttackEnemy();
+        Death();
 
         // Weaponspawntimer Ablauf
         if (childcounterR == 0)
@@ -64,6 +76,9 @@ public class Npc : MonoBehaviour {
         {
             attacking = false;
             moverandom = false;
+            animator.SetBool("run", false);
+            animator.SetBool("run", false);
+            animator.SetBool("speernpcR", false);
         }
         //---------------------------------------------------------------------------------
         // Timer zum Ausharren
@@ -79,6 +94,10 @@ public class Npc : MonoBehaviour {
         if(waittimer>0 && !attacking && !death)
         {
             animator.SetBool("run", false);
+        }
+        if(myCtrl.death)
+        {
+            attacking = false;
         }
 
 
@@ -119,36 +138,40 @@ public class Npc : MonoBehaviour {
         }
         if(distancetoenemy < 2)
         {
-            moverandom = false;
-            attacking = true;
+            if (myCtrl.death == false)
+            {
+                moverandom = false;
+                attacking = true;
+            }
         }
         // Speer werfen
-        if(throwing)
+        if(throwing && !death && !myCtrl.death)
         {
             if (Weapon != null)
             {
                 Weapon.transform.SetParent(null);
                 Speer mySpear = Weapon.GetComponent<Speer>();
                 mySpear.flying = true;
-            }
-            Target.x = TargetposX;
-            Target.y= TargetposY;
-            float step = 5 * Time.deltaTime;
-            Weapon.transform.position = Vector2.MoveTowards(Weapon.transform.position, Target, step);
-            Vector3 difference = Target - Weapon.transform.position;
-            difference.Normalize();
-            float rotation_z = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
-            Weapon.transform.eulerAngles = new Vector3(0, 0, rotation_z);
-            if (Target.x > this.transform.position.x)
-            {
-                Weapon.transform.rotation = Quaternion.Euler(0f, 0f, rotation_z + 180);
-            }
-            else { Weapon.transform.rotation = Quaternion.Euler(0f, 0f, rotation_z); }
-            if (Weapon.transform.position == Target)
-            {                
-                throwing = false;
-                Destroy(Weapon);
-                Weapon = null;
+
+                Target.x = TargetposX;
+                Target.y = TargetposY;
+                float step = 5 * Time.deltaTime;
+                Weapon.transform.position = Vector2.MoveTowards(Weapon.transform.position, Target, step);
+                Vector3 difference = Target - Weapon.transform.position;
+                difference.Normalize();
+                float rotation_z = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+                Weapon.transform.eulerAngles = new Vector3(0, 0, rotation_z);
+                if (Target.x > this.transform.position.x)
+                {
+                    Weapon.transform.rotation = Quaternion.Euler(0f, 0f, rotation_z + 180);
+                }
+                else { Weapon.transform.rotation = Quaternion.Euler(0f, 0f, rotation_z); }
+                if (Weapon.transform.position == Target)
+                {
+                    throwing = false;
+                    Destroy(Weapon);
+                    Weapon = null;
+                }
             }
         }
 
@@ -157,7 +180,7 @@ public class Npc : MonoBehaviour {
 
     void MoveRandom()
     {
-        if (moverandom == true)
+        if (moverandom == true && !death)
         {
             Targetposition = new Vector3(placeholderX, placeholderY, 0);
             float step = speed * Time.deltaTime;
@@ -177,7 +200,7 @@ public class Npc : MonoBehaviour {
 
     void AttackEnemy()
     {
-        if(attacking)
+        if(attacking && !death)
         {
             Targetposition = Enemy.transform.position;
             if (this.transform.position.x > Enemy.transform.position.x)
@@ -207,6 +230,27 @@ public class Npc : MonoBehaviour {
             this.transform.position = Vector3.MoveTowards(this.transform.position, Targetposition, step);
         }
     }
+/*       TolanHD's Ansatz
+    void AttackEnemy()
+    {
+        if (attacking && !death)
+        {
+            Targetposition = Enemy.transform.position;
+            if (Vector3.Distance(this.transform.position, Targetposition) > 2)
+            {
+                animator.SetBool("speernpcR", false);
+                animator.SetBool("run", true);
+                this.transform.LookAt(Targetposition);
+                this.transform.position = Vector3.MoveTowards(this.transform.position, Targetposition, speed * Time.deltaTime);
+            }
+            else
+            {
+                animator.SetBool("run", false);
+                animator.SetBool("speernpcR", true);
+            }
+        }
+    }
+    */
 
     // Zielposition auswürfeln ---------------------------------------------
     void Direction()
@@ -219,13 +263,16 @@ public class Npc : MonoBehaviour {
     void SpawnWeapon()
     {
 
-        if(childcounterR == 0 && weaponspawntimer <=0)
+        if(childcounterR == 0 && weaponspawntimer <=0 && !death)
         {
             Weapon = Instantiate(Prefabliste.Instance().GetGameObject("Spear"), new Vector3(0, 0, 0), Quaternion.identity);
             Weapon.name = "Spear";
             Weapon.transform.SetParent(Rightarm.transform);
+            Weapon.transform.localPosition = new Vector3(0, -0.1f, 0);
             Weapon.transform.eulerAngles = new Vector3(0, 0, 0);
             weaponspawntimer = 3f;
+            var spritetake = Weapon.GetComponent<SpriteRenderer>();
+            spritetake.sortingOrder = 10;
         }
     }
 
@@ -234,5 +281,90 @@ public class Npc : MonoBehaviour {
         throwing = true;
         TargetposX = Enemy.transform.position.x;
         TargetposY = Enemy.transform.position.y;
+    }
+
+    // Damage
+    private void TakeDamage(float damage)
+    {
+            currentHealth -= damage;
+            if (currentHealth < 0 && !death)
+            {
+                currentHealth = 0;
+            }
+        foreach (SpriteRenderer Children in Childlist)
+        {
+            Color tmp = this.GetComponent<SpriteRenderer>().color;
+            Children.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0, 255);
+        }
+            Invoke("resetDamageColor", 0.2f);
+        print(currentHealth);
+    }
+
+    void resetDamageColor()
+    {
+        foreach (SpriteRenderer Children in Childlist)
+        {
+            Children.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
+        }
+    }
+
+    // Alle Körperteile des NPCs in Liste setzen
+
+    private void TakeChildstoList(Transform obj)
+    {
+        foreach (Transform child in obj)
+        {
+            SpriteRenderer TempRenderer = child.GetComponent<SpriteRenderer>();
+            if (TempRenderer != null)
+            {
+                Childlist.Add(TempRenderer);
+                TakeChildstoList(child);
+            }
+        }
+    }
+
+
+    // Damage from Weapon
+    void OnTriggerEnter2D(Collider2D Engager)
+    {
+        // Von Spieler attakiert
+        if (myCtrl.attack == true && Engager.CompareTag("weapon") && Engager is PolygonCollider2D && !death)
+        {
+            Items myEngager = Engager.GetComponent<Items>();
+            int value = 0;
+            if (myEngager.Weapon.TryGetValue(Engager.name, out value))
+            {
+                TakeDamage(value);
+            }
+        }
+    }
+
+    void Death()
+    {
+        if (death)
+        {
+            animator.SetBool("death", true);
+
+            disappeartimer -= Time.deltaTime;
+            if (disappeartimer <= 0)
+            {
+                Destroy(transform.gameObject);
+            }
+        }
+    }
+
+    void Itemdrop()
+    {
+        Vector3 Pos;
+        Pos = this.transform.position;
+        int value = Random.Range(1,Item.Count);
+        string name = Item[value];
+        GameObject Spawn = Instantiate(Prefabliste.Instance().GetGameObject(name), new Vector3 (0,0,0), Quaternion.identity);
+        Spawn.transform.position = Pos;
+    }
+
+    void ActivateDeathmenu()
+    {
+
     }
 }
