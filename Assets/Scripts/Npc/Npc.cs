@@ -112,6 +112,9 @@ public class Npc : MonoBehaviour {
         }
         //---------------------------------------------------------------------------------
 
+        // Gegenstandsanzahl im Rechten Arm prüfen
+        childcounterR = Rightarm.transform.childCount;
+
         // Animationen
 
         //---------------------------------------------------------------------------------
@@ -119,15 +122,14 @@ public class Npc : MonoBehaviour {
         // Npc flip
 
         if (setleft == true)
-        { this.transform.localScale = new Vector3(-1, 1, 1); }
-
-        else { this.transform.localScale = new Vector3(1, 1, 1); }
+        { this.transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else
+        {
+            this.transform.localScale = new Vector3(1, 1, 1);
+        }
 
         //---------------------------------------------------------------------------------
-
-        // Gegenstandsanzahl im Rechten Arm prüfen
-
-        childcounterR = Rightarm.transform.childCount;
 
         // Gegnerreichweite
         Collider2D[] arrayofEnemys = Physics2D.OverlapCircleAll(transform.position, 5.0f, layermask);
@@ -163,9 +165,9 @@ public class Npc : MonoBehaviour {
                 Weapon.transform.eulerAngles = new Vector3(0, 0, rotation_z);
                 if (Target.x > this.transform.position.x)
                 {
-                    Weapon.transform.rotation = Quaternion.Euler(0f, 0f, rotation_z + 180);
+                    Weapon.transform.rotation = Quaternion.Euler(0f, 0f, rotation_z+180);
                 }
-                else { Weapon.transform.rotation = Quaternion.Euler(0f, 0f, rotation_z); }
+                else { Weapon.transform.rotation = Quaternion.Euler(0f, 0f, rotation_z+180); }
                 if (Weapon.transform.position == Target)
                 {
                     throwing = false;
@@ -198,7 +200,7 @@ public class Npc : MonoBehaviour {
         }
     }
 
-    void AttackEnemy()
+  /*  void AttackEnemy()
     {
         if(attacking && !death)
         {
@@ -229,29 +231,38 @@ public class Npc : MonoBehaviour {
             float step = speed * Time.deltaTime;
             this.transform.position = Vector3.MoveTowards(this.transform.position, Targetposition, step);
         }
-    }
-/*       TolanHD's Ansatz
+    } */
+
+    // TolanHD's Ansatz
     void AttackEnemy()
     {
         if (attacking && !death)
         {
-            Targetposition = Enemy.transform.position;
-            if (Vector3.Distance(this.transform.position, Targetposition) > 2)
+            Vector3 targetPos = Enemy.transform.position;
+
+            if (targetPos.x > this.transform.position.x)
+            { setleft = false; }
+            else
+            { setleft = true; }
+
+            if (distancetoenemy > 2)
             {
                 animator.SetBool("speernpcR", false);
                 animator.SetBool("run", true);
-                this.transform.LookAt(Targetposition);
-                this.transform.position = Vector3.MoveTowards(this.transform.position, Targetposition, speed * Time.deltaTime);
+
+                this.transform.position = Vector3.MoveTowards(this.transform.position, targetPos, speed * Time.deltaTime);
             }
-            else
+            else if (distancetoenemy <= 2)
             {
                 animator.SetBool("run", false);
-                animator.SetBool("speernpcR", true);
+
+                if (childcounterR > 0)
+                    animator.SetBool("speernpcR", true);
+                else
+                    animator.SetBool("speernpcR", false);
             }
         }
     }
-    */
-
     // Zielposition auswürfeln ---------------------------------------------
     void Direction()
     {
@@ -269,6 +280,9 @@ public class Npc : MonoBehaviour {
             Weapon.name = "Spear";
             Weapon.transform.SetParent(Rightarm.transform);
             Weapon.transform.localPosition = new Vector3(0, -0.1f, 0);
+            if(setleft)
+            Weapon.transform.eulerAngles = new Vector3(0, 0, -180);
+            else
             Weapon.transform.eulerAngles = new Vector3(0, 0, 0);
             weaponspawntimer = 3f;
             var spritetake = Weapon.GetComponent<SpriteRenderer>();

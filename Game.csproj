@@ -14,6 +14,7 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
     <CompilerResponseFile></CompilerResponseFile>
+    <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.3.1f1</UnityVersion>
@@ -326,6 +327,7 @@
     <Compile Include="Assets\Scripts\Menü\Mute.cs" />
     <Compile Include="Assets\Scripts\Menü\Settingsmenu.cs" />
     <Compile Include="Assets\Scripts\Npc\Npc.cs" />
+    <Compile Include="Assets\Scripts\Npc\Npc_sword.cs" />
     <Compile Include="Assets\Scripts\Objecte\Baum.cs" />
     <Compile Include="Assets\Scripts\Objecte\Chest.cs" />
     <Compile Include="Assets\Scripts\Objecte\Erzadern.cs" />

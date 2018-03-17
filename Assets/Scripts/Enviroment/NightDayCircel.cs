@@ -36,9 +36,9 @@ public class NightDayCircel : MonoBehaviour {
 
         // UI Update-------------------------------------------------------------------
 
-        Minute.text = minute.ToString("0");
-        Hour.text = hour.ToString("0");
-        Day.text = day.ToString("0");
+        Minute.text = minute.ToString("00");
+        Hour.text = hour.ToString("00");
+        Day.text = day.ToString("00");
 
         // Tages Stunden und Minutenzähler
         minute += Time.deltaTime * speed;

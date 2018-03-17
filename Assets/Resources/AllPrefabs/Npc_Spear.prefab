@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4108873133296164}
   - component: {fileID: 212825337491480310}
   m_Layer: 13
-  m_Name: Rightarm
+  m_Name: Rightarm_npc
   m_TagString: Rightarm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -353,7 +353,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.0022541434, y: -0.08045688}
@@ -385,7 +385,7 @@ Animator:
   m_GameObject: {fileID: 1948998418512168}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ca2f53955495e2d4d840af4aad9c5f3e, type: 2}
+  m_Controller: {fileID: 9100000, guid: ea93418f2ad294841a77f10ebc8c7f14, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -404,6 +404,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b29c06bd4e6a6af4f891b9f265013072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myCtrl: {fileID: 0}
+  Charakter: {fileID: 0}
   myMapgenerator: {fileID: 0}
   Mapgenerator: {fileID: 0}
   Targetposition: {x: 0, y: 0, z: 0}
@@ -424,6 +426,7 @@ MonoBehaviour:
   throwing: 0
   TargetposX: 0
   TargetposY: 0
+  Childlist: []
 --- !u!212 &212005651936047146
 SpriteRenderer:
   m_ObjectHideFlags: 1

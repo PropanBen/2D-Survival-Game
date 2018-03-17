@@ -29,6 +29,7 @@ TagManager:
   - heal
   - Animal
   - drinkable
+  - Npc
   layers:
   - Default
   - TransparentFX

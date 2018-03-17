@@ -552,6 +552,8 @@ public class Ctrl : MonoBehaviour
 
     public void OnTriggerStay2D(Collider2D Attacker)
     {
+        // Tierschaden
+
         if (Attacker.GetComponent<AnimalCtrl>() != null)
         {
             AnimalCtrl myAnimalCtrl = Attacker.GetComponent<AnimalCtrl>();
@@ -575,6 +577,7 @@ public class Ctrl : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D Spear)
     {
+        // Speer Waffe
         if(Spear.name == "Spear" && Spear.GetComponent<Items>() != null)
         {
             Items mySpear = Spear.GetComponent<Items>();
@@ -585,6 +588,26 @@ public class Ctrl : MonoBehaviour
                 Charakter.SendMessage("TakeDamage", value);
             }
         }
+
+        // Npc Schaden
+        if(Spear.CompareTag("weapon") && Spear.GetComponent<Items>() != null)
+        {
+           Transform Root = Spear.transform.root;
+            if (Root.GetComponent<Npc_sword>() != null)
+            {
+                Npc_sword mySpear = Root.GetComponent<Npc_sword>();
+                Items myItems= Spear.GetComponent<Items>();
+                if (mySpear.attack == true)
+                {
+                    int value = 0;
+                    if (myItems.Weapon.TryGetValue(Spear.name, out value))
+                    {
+                        Charakter.SendMessage("TakeDamage", value);
+                    }
+                }
+            }
+        }
+
     }
 
         public void StartSpearthrow()
