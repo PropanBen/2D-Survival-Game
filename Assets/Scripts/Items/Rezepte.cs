@@ -45,6 +45,7 @@ public class Rezepte : MonoBehaviour
         Werkzeugliste.Add(Pickaxe_iron);
         Werkzeugliste.Add(Pickaxe_gold);
         Werkzeugliste.Add(Pickaxe_diamond);
+        Essensliste.Add(Flour);
         Buildinglist.Add(Chest);
         Buildinglist.Add(Oven);
         Buildinglist.Add(Floor_wood);
@@ -69,6 +70,7 @@ public class Rezepte : MonoBehaviour
         Otherlist.Add(Torch);
         Otherlist.Add(Spawnpole);
         Otherlist.Add(Leather);
+        Otherlist.Add(Bowl);
         Kleidungsliste.Add(Head_Leather);
         Kleidungsliste.Add(Body_Leather);
         Kleidungsliste.Add(Rightshoulder_Leather);
@@ -201,6 +203,11 @@ public Rezepte(string name,int LvL, int rescount,string buttonnumber, string Res
 
     // Essen  Dropdownmenu value = 2
 
+    public static Rezepte Flour = new Rezepte("Flour", 0, 1, "1", "Wheat", 1, "Use for Baking Meals\n" +
+                 "Resources needed :\n 1xWheat");
+
+
+
     // Kleidungsrezepte  Dropdownmenu value = 3
 
     public static Rezepte Head_Leather = new Rezepte("Head_Leather", 0, 1, "1", "Leather", 1, "Leather Helm for the Head \n" +"Armour 10\n" +
@@ -306,6 +313,8 @@ public Rezepte(string name,int LvL, int rescount,string buttonnumber, string Res
                             "Resources needed :\n3xTwig");
     public static Rezepte Leather = new Rezepte("Leather", 0, 1, "9", "Hide", 3, "For making Leather\n" +
                              "Resources needed :\n 3xHide");
+    public static Rezepte Bowl = new Rezepte("Bowl", 0, 2, "10", "Log", 1, "Flint",1, "For Cooking Meal\n" +
+                         "Resources needed :\n 1xLog 1xFlint");
 
 
 

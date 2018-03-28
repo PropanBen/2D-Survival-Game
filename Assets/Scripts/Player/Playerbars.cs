@@ -18,7 +18,7 @@ public class Playerbars : MonoBehaviour {
     public float currentEXP = 0;
     private float maxEXP = 100;
     public int LvLcounter = 0;
-    private float timer = 2f;
+    private float timer = 1.0f;
     private GameObject Charakter;
     public GameObject EXPbarCurrent;
     public GameObject HealthbarCurrent;
@@ -140,7 +140,7 @@ public class Playerbars : MonoBehaviour {
                 Children.color = new Color(255, 0, 0, 255);
             }
             Invoke("resetDamageColor", 0.2f);
-            timer = 2f;
+            timer = 1.0f;
         }
         // Selbstredend
            UpdateArmourbar();

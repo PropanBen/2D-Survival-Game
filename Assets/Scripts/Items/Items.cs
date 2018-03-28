@@ -318,6 +318,25 @@ public class Items : MonoBehaviour
             isgrounded = false;
             holdingL = true;
         }
+
+
+        //*****************************************************************//
+        //  Not yet working                                                //
+        //*****************************************************************//
+        // Item zerstören wenn auf Wasser spawnt
+
+        if (col.GetComponent<SpriteRenderer>() != null)
+        {
+            SpriteRenderer Sprite = col.GetComponent<SpriteRenderer>();
+            string name = Sprite.name;
+            print(name);
+            if(name == "water")
+            {
+                print("Wasser");
+                Destroy(this.gameObject);
+            }
+        }
+
     }
     // Childs des Items in Liste hinzufügen   
     private void TakeChildstoList(Transform obj)

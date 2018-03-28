@@ -58,7 +58,7 @@ public class AnimalCtrl : MonoBehaviour
     public int linencounter;
     public int eggcounter;
     public int woolcounter;
-    public float timer = 1.5f;
+    public float timer = 0.5f;
 
 
     // Use this for initialization
@@ -590,7 +590,7 @@ public class AnimalCtrl : MonoBehaviour
                 Invoke("resetDamageColor", 0.2f);
                 if (!death && searchitem == false)
                     movetoplayer = true;
-                timer = 1.5f;
+                timer = 0.5f;
             }
         }
 

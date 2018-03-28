@@ -311,7 +311,6 @@ public class Npc : MonoBehaviour {
             Children.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0, 255);
         }
             Invoke("resetDamageColor", 0.2f);
-        print(currentHealth);
     }
 
     void resetDamageColor()
