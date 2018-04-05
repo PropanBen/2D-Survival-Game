@@ -329,10 +329,8 @@ public class Items : MonoBehaviour
         {
             SpriteRenderer Sprite = col.GetComponent<SpriteRenderer>();
             string name = Sprite.name;
-            print(name);
             if(name == "water")
             {
-                print("Wasser");
                 Destroy(this.gameObject);
             }
         }

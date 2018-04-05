@@ -82,13 +82,13 @@ public class StackEquipment : MonoBehaviour
                 // Leere Slots auf Deflaut Sprite setzen
                 Slot = GameObject.Find(this.name);
                 NameItem = this.name.Substring(0, this.name.Length - 6);
-                string Nameempty = NameItem; //"+UI"
+                string Nameempty = NameItem+"UI"; //+"UI"
                 SlotUI = GameObject.Find(Nameempty);
                 PlayerEquip = GameObject.Find(NameItem);
                 Slot.GetComponentsInChildren<Text>()[0].text = "0";
                 Slot.gameObject.GetComponent<Image>().sprite = SlotItem;
                 EquipmentSprite = Resources.Load("Charakter/" + NameItem, typeof(Sprite)) as Sprite;
-            SlotUI.gameObject.GetComponent<SpriteRenderer>().sprite = EquipmentSprite;
+                SlotUI.gameObject.GetComponent<SpriteRenderer>().sprite = EquipmentSprite;
                 PlayerEquip.gameObject.GetComponent<SpriteRenderer>().sprite = EquipmentSprite;
             }
         }

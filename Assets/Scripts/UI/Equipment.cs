@@ -281,18 +281,16 @@ public class Equipment
         float armourDamage = armourValueTotal - damage;
 
         ChooseArmour(damage * 1f);
+        if (armourDamage <= 0)
+            damage = damage * -1;
 
-        if(armourDamage>0)
+        if(armourValueTotal > 0)
         {
             CalcArmourValues();
-           // armourValueTotal -= damage;
             damage = 0;
         }
-        else
-        {
-            armourValueTotal = 0;
-            damage -= armourDamage;
-        }
+        if (damage <= 0)
+            damage = damage * -1;
 
         return damage;
     }

@@ -138,7 +138,7 @@ public class Npc : MonoBehaviour {
             distancetoenemy = Vector2.Distance(this.transform.position, Player.transform.position);
             Enemy = Player.gameObject;
         }
-        if(distancetoenemy < 2)
+        if(distancetoenemy < 2 && Enemy !=null)
         {
             if (myCtrl.death == false)
             {
@@ -200,46 +200,13 @@ public class Npc : MonoBehaviour {
         }
     }
 
-  /*  void AttackEnemy()
-    {
-        if(attacking && !death)
-        {
-            Targetposition = Enemy.transform.position;
-            if (this.transform.position.x > Enemy.transform.position.x)
-            {
-                Targetposition += new Vector3(2, 0, 0);
-                setleft = true;
-                animator.SetBool("run", true);
-            }
-            if (this.transform.position.x < Enemy.transform.position.x)
-            {
-                Targetposition += new Vector3(-2, 0, 0);
-                setleft = false;
-                animator.SetBool("run", true);
-            }
-            if(distancetoenemy == 2)
-            {
-                animator.SetBool("run", false);
-            }
-            if(distancetoenemy <= 2 && childcounterR>0)
-            {
-                animator.SetBool("speernpcR", true);
-            }
-            else { animator.SetBool("speernpcR", false); }
-
-
-            float step = speed * Time.deltaTime;
-            this.transform.position = Vector3.MoveTowards(this.transform.position, Targetposition, step);
-        }
-    } */
-
     // TolanHD's Ansatz
     void AttackEnemy()
     {
-        if (attacking && !death)
-        {
+        if (attacking && !death && Enemy != null)
+        { 
             Vector3 targetPos = Enemy.transform.position;
-
+            
             if (targetPos.x > this.transform.position.x)
             { setleft = false; }
             else
