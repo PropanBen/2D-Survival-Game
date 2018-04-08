@@ -376,10 +376,6 @@ public class Ctrl : MonoBehaviour
             if (Etiming == true)
             {
                 Etimer -= Time.deltaTime;
-                if (Etimer < 1.5)
-                {
-                    SoundManager.SendMessage("PlaySound", "eating");
-                }
 
                 if (Etimer < 0)
                 {
@@ -395,6 +391,11 @@ public class Ctrl : MonoBehaviour
                 Etimer = 1.5f;
             }
         }
+    }
+
+    public void PlayEatSound()
+    {
+        SoundManager.SendMessage("PlaySound", "eating");
     }
 
     // Healing Animation

@@ -71,6 +71,7 @@ public class Rezepte : MonoBehaviour
         Otherlist.Add(Spawnpole);
         Otherlist.Add(Leather);
         Otherlist.Add(Bowl);
+        Otherlist.Add(Tinderdrill);
         Kleidungsliste.Add(Head_Leather);
         Kleidungsliste.Add(Body_Leather);
         Kleidungsliste.Add(Rightshoulder_Leather);
@@ -315,6 +316,8 @@ public Rezepte(string name,int LvL, int rescount,string buttonnumber, string Res
                              "Resources needed :\n 3xHide");
     public static Rezepte Bowl = new Rezepte("Bowl", 0, 2, "10", "Log", 1, "Flint",1, "For Cooking Meal\n" +
                          "Resources needed :\n 1xLog 1xFlint");
+    public static Rezepte Tinderdrill = new Rezepte("Tinderdrill", 0, 2, "11", "Leaf", 1, "Twig", 1, "To start a Fire\n" +
+                     "Resources needed :\n 1xLeaf 1xTwig");
 
 
 

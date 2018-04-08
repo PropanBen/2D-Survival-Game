@@ -398,6 +398,7 @@ public class Crafting : MonoBehaviour
                     }
                 }
                 Crafted = null;
+                Handwerk.transform.root.SendMessage("EXP", 10);
             }
 
             // Resourcen löschen

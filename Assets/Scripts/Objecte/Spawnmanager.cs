@@ -33,6 +33,21 @@ public class Spawnmanager : MonoBehaviour {
         ToHavelist.Add("Opossum", 5);
         ToHavelist.Add("Rabbit", 10);
         ToHavelist.Add("Squirrel", 5);
+        ToHavelist.Add("Apple", 50);
+        ToHavelist.Add("Cherry", 50);
+        ToHavelist.Add("Firestone", 10);
+        ToHavelist.Add("Grape", 10);
+        ToHavelist.Add("Gras", 50);
+        ToHavelist.Add("Healplant", 20);
+        ToHavelist.Add("Leaf", 20);
+        ToHavelist.Add("Leek", 10);
+        ToHavelist.Add("Paprika", 10);
+        ToHavelist.Add("Pear", 10);
+        ToHavelist.Add("Radish", 10);
+        ToHavelist.Add("Sandpile", 3);
+        ToHavelist.Add("Stone", 20);
+        ToHavelist.Add("Wheat", 20);
+
 
         SpawnTrigger();
     }
@@ -40,7 +55,9 @@ public class Spawnmanager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-  
+
+        if (Input.GetKey(KeyCode.K))
+            SpawnTrigger();
     }
 
     public void SpawnTrigger()

@@ -324,10 +324,14 @@ public class Npc : MonoBehaviour {
         if (death)
         {
             animator.SetBool("death", true);
-
+      
             disappeartimer -= Time.deltaTime;
             if (disappeartimer <= 0)
             {
+                if (Enemy.name == "Charakter")
+                {
+                    Charakter.SendMessage("EXP", 20);
+                }
                 Destroy(transform.gameObject);
             }
         }

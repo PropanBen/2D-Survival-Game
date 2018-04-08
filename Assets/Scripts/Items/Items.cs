@@ -123,9 +123,13 @@ public class Items : MonoBehaviour
         essenswerte.Add("Pear", 5);
         essenswerte.Add("Meat_roasted", 20);
         essenswerte.Add("Egg_fried", 15);
+        essenswerte.Add("Cherry", 5);
 
         eatable = new Dictionary<string, bool>();
         eatable.Add("Apple", true);
+        eatable.Add("Cherry", true);
+
+        Essensliste.Add("Cherry");
 
 
         // Werte für Trinken
@@ -324,17 +328,18 @@ public class Items : MonoBehaviour
         //  Not yet working                                                //
         //*****************************************************************//
         // Item zerstören wenn auf Wasser spawnt
-
-        if (col.GetComponent<SpriteRenderer>() != null)
+ 
+        if(col.GetComponent<SpriteRenderer>() !=null)
         {
             SpriteRenderer Sprite = col.GetComponent<SpriteRenderer>();
-            string name = Sprite.name;
-            if(name == "water")
+            if(Sprite.name =="water")
             {
+                print(Sprite.name);
                 Destroy(this.gameObject);
             }
         }
 
+     
     }
     // Childs des Items in Liste hinzufügen   
     private void TakeChildstoList(Transform obj)

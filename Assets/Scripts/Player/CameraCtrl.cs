@@ -27,7 +27,7 @@ public class CameraCtrl : MonoBehaviour {
 
     void LateUpdate()
     {
-        GameObject charakter = GameObject.Find("Npc_Spear");
+        GameObject charakter = GameObject.Find("Charakter");
         if (charakter.activeSelf == true)
             {
             pos = charakter.transform.position;

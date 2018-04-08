@@ -559,8 +559,12 @@ public class AnimalCtrl : MonoBehaviour
                 disappeartimer -= Time.deltaTime;
                 if (disappeartimer <= 0)
                 {
-                    Itemdrop();
-                    Destroy(transform.gameObject);
+                      if (Attacker.name == "Charakter")
+                      {
+                       Charakter.SendMessage("EXP", health[this.name] * 0.1);
+                      }
+                      Itemdrop();
+                      Destroy(transform.gameObject);
                 }
             }
         }
@@ -618,8 +622,8 @@ public class AnimalCtrl : MonoBehaviour
         void OnTriggerEnter2D(Collider2D Engager)
         {
             // Von Spieler attakiert
-            if (myCtrl.attack == true && Engager.CompareTag("weapon") && Engager is PolygonCollider2D && !death)
-            {
+            if (Engager.CompareTag("weapon") && myCtrl.attack == true && Engager is PolygonCollider2D && !death)
+            {              
                 Attacker = Charakter;
                 Items myEngager = Engager.GetComponent<Items>();
                 int value = 0;

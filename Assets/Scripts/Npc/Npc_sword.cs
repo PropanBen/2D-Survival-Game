@@ -284,6 +284,11 @@ public class Npc_sword : MonoBehaviour {
             disappeartimer -= Time.deltaTime;
             if (disappeartimer <= 0)
             {
+                if (Enemy.name == "Charakter")
+                {
+                    Charakter.SendMessage("EXP", 20);
+                }
+
                 Destroy(transform.gameObject);
             }
         }

@@ -58,11 +58,8 @@ public class SoundSettings : MonoBehaviour {
         AudioSource audiosource = Obj.GetComponent<AudioSource>();
         Obj.transform.SetParent(this.transform);
         audiosource.outputAudioMixerGroup = SFX;
-       // audiosource.volume = 1.0f;
+        audiosource.volume = 0.2f;
  
-        
-
-
         switch (sound)
         {
             case "axt" : audiosource.clip = axt; break;

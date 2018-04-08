@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class Fackel : MonoBehaviour {
 
+
+    public SoundSettings mySoundsettings;
+    public GameObject Soundmanager;
     public Ctrl myCtrl;
     public GameObject Charakter;
     public Animator animator;
@@ -16,10 +19,13 @@ public class Fackel : MonoBehaviour {
     public AudioSource AudioSource;
     public AudioClip fire;
     public GameObject UI;
+    public int id;
 
 	// Use this for initialization
 	void Start ()
     {
+        SoundManager = GameObject.Find("SoundManager");
+        mySoundsettings = SoundManager.GetComponent<SoundSettings>();
         Charakter = GameObject.Find("Charakter");
         myCtrl = Charakter.GetComponent<Ctrl>();
         SoundManager = GameObject.Find("SoundManager");
@@ -35,15 +41,18 @@ public class Fackel : MonoBehaviour {
         if (lighton)
         {
             LightGO.SetActive(true);
-            SoundManager.SendMessage("PlaySound", "firesound");
+            if (id == 0)
+                id = mySoundsettings.PlaySound("firesound");
             animator.SetBool("burn", true);
         }
         else
         {
             animator.SetBool("burn", false);
             LightGO.SetActive(false);
+            Destroy(MatchId(id));
+            id = 0;
         }
-        if(switcher <= 1 && switcher >0)
+        if (switcher <= 1 && switcher >0)
             Light.intensity = 100f;
         if (switcher < 0 && switcher > -1f)
         {
@@ -77,5 +86,24 @@ public class Fackel : MonoBehaviour {
                 UI.SetActive(!UI.activeSelf);
             }
 
+    }
+
+    public GameObject MatchId(int id)
+    {
+        Transform Obj;
+        GameObject GO = null;
+
+        int childcounter = SoundManager.transform.childCount;
+        if (childcounter > 0)
+
+            for (int i = 0; i < childcounter; i++)
+            {
+                Obj = SoundManager.transform.GetChild(i);
+                if (id == Obj.transform.GetInstanceID())
+                {
+                    GO = Obj.gameObject;
+                }
+            }
+        return GO;
     }
 }
