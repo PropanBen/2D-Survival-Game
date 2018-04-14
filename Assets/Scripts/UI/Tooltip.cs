@@ -59,6 +59,8 @@ public class Tooltip : MonoBehaviour {
             string maxDurabilitystr = maxDurability.ToString();
             Tooltippanel.GetComponentsInChildren<Text>()[0].text = Child.name;
             Tooltippanel.GetComponentsInChildren<Text>()[1].text = "Durability:\n" + currentDurabilitystr +" / "+ maxDurabilitystr;
+            Tooltippanel.GetComponentsInChildren<Text>()[2].text = GetItemAttribute(Child.name);
+
             Vector3 mousePos = Input.mousePosition;
             float x = mousePos.x;
             float y = mousePos.y;
@@ -71,5 +73,44 @@ public class Tooltip : MonoBehaviour {
     void OnMouseExit()
     {
         Tooltippanel.transform.position = new Vector3(15.2f, 628, 0);
+    }
+
+    private string GetItemAttribute(string name)
+    {
+        string text = "";
+        int value = 0;
+        float valueA = 0;
+
+        if (myItems.healwerte.TryGetValue(name, out value))
+        {
+            text = "Heal +"+ value;
+        }
+        if (myItems.essenswerte.TryGetValue(name, out value))
+        {
+            text = "Hunger +" + value;
+        }
+        if (myItems.drinkingwerte.TryGetValue(name, out value))
+        {
+            text = "Drinking +"+ value;
+        }
+        if (myItems.fuelwerte.TryGetValue(name, out value))
+        {
+            text = "Fuel "+ value;
+        }
+        if (myItems.Weapon.TryGetValue(name, out value))
+        {
+            text = "Damage "+ value;
+        }
+        if(Equipment.instance.Armour.TryGetValue(name, out valueA))
+        {
+            text = "Armour +"+valueA;
+        }
+        if (myItems.ItemDamage.TryGetValue(name, out value))
+        {
+            text = "Damage " + value;
+        }
+
+
+        return text;
     }
 }

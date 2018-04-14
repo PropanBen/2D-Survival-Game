@@ -26,9 +26,9 @@ public class Equipment
         }
     }
 
-    private static Equipment instance;
+    public static Equipment instance;
 
-    private Equipment()
+    public Equipment()
     {
         // Armour--------------------------------------------------
    

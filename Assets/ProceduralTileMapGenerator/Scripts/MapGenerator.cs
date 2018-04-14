@@ -19,7 +19,7 @@ public class MapGenerator : MonoBehaviour
     public int mapHeight = 100;   //groese der Map Y
     public int VoronoiPointCount = 100;
     public float spriteGroesse = 1;  //Unity-Groesse des Sprites
-    public int SquareSize = 50; //Die Anzahl an Tiles die ein Item spawn Square ergeben
+    public int SquareSize = 50; // Spawndichte in den Gebieten
 
     public TileType[] TileTypes; //enthält alle möglichen Map-Teile
     public Sprite BorderSprite;
@@ -117,7 +117,7 @@ public class MapGenerator : MonoBehaviour
                 {
                     Tile.GetComponent<BoxCollider2D>().enabled = true;
                     Tile.GetComponent<BoxCollider2D>().isTrigger = false;
-                    Tile.GetComponent<BoxCollider2D>().size = new Vector2(0.2f, 0.2f);
+                    Tile.GetComponent<BoxCollider2D>().size = new Vector2(spriteGroesse, spriteGroesse);
                     Tile.gameObject.AddComponent<Fishable>();
                 }
             }

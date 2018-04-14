@@ -271,6 +271,7 @@ public class Npc_sword : MonoBehaviour {
             if (myEngager.Weapon.TryGetValue(Engager.name, out value))
             {
                 TakeDamage(value);
+                myEngager.currentDurability -= value / 2;
             }
         }
     }

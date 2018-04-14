@@ -272,23 +272,35 @@ public class Ctrl : MonoBehaviour
         if (!death)
         {
             // Rechte Animation
-            if (Input.GetMouseButton(0) && !Input.GetKey(KeyCode.LeftShift))
-            { animator.SetBool(parameterR, true); }
-            else
-            { animator.SetBool(parameterR, false); }
+            if (!string.IsNullOrEmpty(parameterR))
+            {
+                if (Input.GetMouseButton(0) && !Input.GetKey(KeyCode.LeftShift))
+                {
+                    animator.SetBool(parameterR, true);
+                }
+                else
+                {
+                    animator.SetBool(parameterR, false);
+                }
+            }
 
             // Linke Animation
-            if (Input.GetMouseButton(1))
-            { animator.SetBool(parameterL, true); }
-            else
-            { animator.SetBool(parameterL, false); }
+            if (!string.IsNullOrEmpty(parameterL))
+            {
+                if (Input.GetMouseButton(1))
+                {
+                    animator.SetBool(parameterL, true);
+                }
+                else
+                {
+                    animator.SetBool(parameterL, false);
+                }
+            }
         }
-
-        
     }
-    // Item mit rechter Hand aufnehmen oder droppen Animation
+        // Item mit rechter Hand aufnehmen oder droppen Animation
 
-    public void TakeItemR()
+        public void TakeItemR()
     {
         if (Input.GetMouseButtonUp(0) && Input.GetKey(KeyCode.LeftShift) && childcounterR == 0)
         {

@@ -19,19 +19,28 @@ public class Fishable : MonoBehaviour {
 		
 	}
 
- /*   void OnTriggerEnter2D(Collider2D col)
+    /*   void OnTriggerEnter2D(Collider2D col)
+       {
+           if (col.CompareTag("Haken"))
+           {
+               col.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+           }
+       }
+
+       void OnTriggerExit2D(Collider2D col)
+       {
+           if (col.CompareTag("Haken"))
+           {
+               col.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+           }
+       }*/
+
+    void OnTriggerStay2D(Collider2D col)
     {
-        if (col.CompareTag("Haken"))
+        if (col.GetComponent<Items>() != null)
         {
-            col.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                Destroy(col.gameObject);
+           
         }
     }
-
-    void OnTriggerExit2D(Collider2D col)
-    {
-        if (col.CompareTag("Haken"))
-        {
-            col.gameObject.GetComponent<SpriteRenderer>().enabled = true;
-        }
-    }*/
 }

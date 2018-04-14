@@ -30,7 +30,6 @@ public class Items : MonoBehaviour
     public Dictionary<string, int> drinkingwerte;
     public Dictionary<string, int> fuelwerte;
     public Dictionary<string, int> Weapon;
-    public Dictionary<string, bool> eatable;
     public Dictionary<string, int> animalfood;
     public Sprite spritedrop;
 
@@ -70,8 +69,13 @@ public class Items : MonoBehaviour
         ItemDurability["Axe_iron"] = 200;
         ItemDurability["Axe_gold"] = 225;
         ItemDurability["Axe_diamond"] = 250;
-        ItemDurability["Sword_stone"] = 50;
-
+        ItemDurability["Sword_wood"] = 100;
+        ItemDurability["Sword_stone"] = 110;
+        ItemDurability["Sword_copper"] = 120;
+        ItemDurability["Sword_bronze"] = 130;
+        ItemDurability["Sword_iron"] = 140;
+        ItemDurability["Sword_gold"] = 150;
+        ItemDurability["Sword_diamond"] = 200;
 
         // Schaden
         ItemDamage = new Dictionary<string, int>();  
@@ -98,11 +102,23 @@ public class Items : MonoBehaviour
         //*****************************************************************//
 
         // Listen
-        Essensliste = new List<string>
-        { "Apple","Pear","Apple_roasted","Meat_roasted","Egg_fried" };
+        Essensliste = new List<string> { };
         Waterfilllist = new List<string> { "Leaf","Tinderdrill", "Flint" };
         Drinkinglist = new List<string> { "Leaf_water" };
         Heilungsliste = new List<string> { "Healpotion" };
+
+        // Liste der Essbaren Sachen
+
+        Essensliste.Add("Apple");
+        Essensliste.Add("Apple_roasted");
+        Essensliste.Add("Applepie");
+        Essensliste.Add("Pear");
+        Essensliste.Add("Meat_roasted");
+        Essensliste.Add("Egg_fried");
+        Essensliste.Add("Cherry");
+        Essensliste.Add("Leeksoup");
+        Essensliste.Add("Cherrycake");
+
 
         // Werte für Animalfood
         animalfood = new Dictionary<string, int>();
@@ -120,17 +136,13 @@ public class Items : MonoBehaviour
         essenswerte = new Dictionary<string, int>();
         essenswerte.Add("Apple", 5);
         essenswerte.Add("Apple_roasted", 10);
+        essenswerte.Add("Applepie", 20);
         essenswerte.Add("Pear", 5);
         essenswerte.Add("Meat_roasted", 20);
         essenswerte.Add("Egg_fried", 15);
         essenswerte.Add("Cherry", 5);
-
-        eatable = new Dictionary<string, bool>();
-        eatable.Add("Apple", true);
-        eatable.Add("Cherry", true);
-
-        Essensliste.Add("Cherry");
-
+        essenswerte.Add("Leeksoup", 20);
+        essenswerte.Add("Cherrycake", 20);
 
         // Werte für Trinken
         drinkingwerte = new Dictionary<string, int>();

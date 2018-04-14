@@ -12,7 +12,7 @@ public class SoundSettings : MonoBehaviour {
     public AudioClip axt, treefall, bite, fishstruggle, Throw, waterfill, brokentool,
                      closechest, drinking, eating, fireout, firesound, flop, heal, openchest,
                      startfire, stonebreak, pickaxe;
-    public AudioClip Track1, Track2, Track3, Track4;
+    public AudioClip Track2,Track3;
     public List<AudioClip> Player = new List<AudioClip>();
     public int childcounter;
 
@@ -20,10 +20,8 @@ public class SoundSettings : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        Player.Add(Track1);
         Player.Add(Track2);
         Player.Add(Track3);
-        Player.Add(Track4);
     }
 	
 	// Update is called once per frame
@@ -94,7 +92,7 @@ public class SoundSettings : MonoBehaviour {
     {
         if (!Music.isPlaying)
         {
-            int random = Random.Range(1, 4);
+            int random = Random.Range(1, Player.Count);
 
             AudioClip Clip = Player[random];
             Music.clip = Clip;

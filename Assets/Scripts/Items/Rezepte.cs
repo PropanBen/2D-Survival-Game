@@ -46,6 +46,9 @@ public class Rezepte : MonoBehaviour
         Werkzeugliste.Add(Pickaxe_gold);
         Werkzeugliste.Add(Pickaxe_diamond);
         Essensliste.Add(Flour);
+        Essensliste.Add(Applepie);
+        Essensliste.Add(Cherrycake);
+        Essensliste.Add(Omelette);
         Buildinglist.Add(Chest);
         Buildinglist.Add(Oven);
         Buildinglist.Add(Floor_wood);
@@ -92,6 +95,7 @@ public class Rezepte : MonoBehaviour
         Kleidungsliste.Add(Leftlegupper_Iron);
         Kleidungsliste.Add(Rightleg_Iron);
         Kleidungsliste.Add(Leftleg_Iron);
+
     }
 
     void Update()
@@ -206,6 +210,12 @@ public Rezepte(string name,int LvL, int rescount,string buttonnumber, string Res
 
     public static Rezepte Flour = new Rezepte("Flour", 0, 1, "1", "Wheat", 1, "Use for Baking Meals\n" +
                  "Resources needed :\n 1xWheat");
+    public static Rezepte Applepie = new Rezepte("Applepie", 0, 3, "2", "Bowl", 1, "Flour",1,"Apple",1, "A Tasty Applepie\n" +
+             "Resources needed :\n 1xBowl,1xFlour,1xApple");
+    public static Rezepte Cherrycake = new Rezepte("Cherrycake", 0, 3, "3", "Bowl", 1, "Flour", 1, "Cherry", 1, "A Tasty Cherrycake\n" +
+         "Resources needed :\n 1xBowl,1xFlour,1xCherrycake");
+    public static Rezepte Omelette = new Rezepte("Omelette", 0, 1, "3", "Egg", 3, "A Tasty Omelette\n" +
+     "Resources needed :\n 3xEgg");
 
 
 

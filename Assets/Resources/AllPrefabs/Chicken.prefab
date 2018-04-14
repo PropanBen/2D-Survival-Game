@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 61637795854695230}
   - component: {fileID: 114950618125298172}
   - component: {fileID: 95698072232955660}
+  - component: {fileID: 50069603559911728}
   m_Layer: 12
   m_Name: Chicken
   m_TagString: Animal
@@ -43,6 +44,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50069603559911728
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1723636108437728}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!61 &61637795854695230
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -52,7 +73,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.004390992, y: 0.005018331}
@@ -102,6 +123,7 @@ MonoBehaviour:
   NightDay: {fileID: 0}
   Animal: {fileID: 0}
   myCtrl: {fileID: 0}
+  speed: 0.5
   animator: {fileID: 0}
   Targetposition: {x: 0, y: 0, z: 0}
   Charakter: {fileID: 0}
@@ -112,6 +134,7 @@ MonoBehaviour:
   searchitem: 0
   attacking: 0
   attackrange: 0
+  animaldeath: 0
   currentHunger: 0
   layermaskitems:
     serializedVersion: 2
@@ -128,6 +151,7 @@ MonoBehaviour:
   linencounter: 0
   eggcounter: 0
   woolcounter: 0
+  timer: 0.5
 --- !u!212 &212132123591917096
 SpriteRenderer:
   m_ObjectHideFlags: 1

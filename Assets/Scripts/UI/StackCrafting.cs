@@ -36,6 +36,7 @@ public class StackCrafting : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        this.gameObject.GetComponent<Image>().sprite = SlotItem;
         CraftedItem = GameObject.Find("CraftedItem");
         slot = false;
         Invoke("SetImage", 0.1f);
@@ -56,7 +57,7 @@ public class StackCrafting : MonoBehaviour
         GameObject Slot = GameObject.Find(this.name);
         if (slot)
         {
-            if (this.GetComponent<Image>() != null)
+            if (this.GetComponent<Image>() != null && this.GetComponent<Image>().sprite !=null)
             {
                 Name = this.GetComponent<Image>().sprite.name;
             }
@@ -71,7 +72,7 @@ public class StackCrafting : MonoBehaviour
             Slot.gameObject.GetComponent<Image>().sprite = Spritereader;
         }
         if (childcounter == 1 && !Name.Contains("grey"))
-        {            
+        {
              Slot.gameObject.GetComponent<Image>().sprite = SlotItem;
              Slot.GetComponentsInChildren<Text>()[0].text = "0";
         }
