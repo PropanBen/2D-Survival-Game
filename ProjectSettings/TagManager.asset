@@ -30,6 +30,7 @@ TagManager:
   - Animal
   - drinkable
   - Npc
+  - watertile
   layers:
   - Default
   - TransparentFX

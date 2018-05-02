@@ -32,6 +32,7 @@ public class Items : MonoBehaviour
     public Dictionary<string, int> Weapon;
     public Dictionary<string, int> animalfood;
     public Sprite spritedrop;
+    public GameObject []allObjects;
 
 
 
@@ -333,22 +334,6 @@ public class Items : MonoBehaviour
             spritetake.sortingOrder = 4;
             isgrounded = false;
             holdingL = true;
-        }
-
-
-        //*****************************************************************//
-        //  Not yet working                                                //
-        //*****************************************************************//
-        // Item zerstören wenn auf Wasser spawnt
- 
-        if(col.GetComponent<SpriteRenderer>() !=null)
-        {
-            SpriteRenderer Sprite = col.GetComponent<SpriteRenderer>();
-            if(Sprite.name =="water")
-            {
-                print(Sprite.name);
-                Destroy(this.gameObject);
-            }
         }
 
      

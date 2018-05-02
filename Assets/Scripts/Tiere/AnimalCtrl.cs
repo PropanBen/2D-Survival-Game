@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AnimalCtrl : MonoBehaviour
 {
+    public Spawnmanager mySpawnmanager;
+    public GameObject Spawnmanager;
     public MapGenerator myMapgenerator;
     public GameObject Mapgenerator;
     public NightDayCircel myNightDayCircel;
@@ -66,6 +68,8 @@ public class AnimalCtrl : MonoBehaviour
     {
         Mapgenerator = GameObject.Find("MapGenerator");
         myMapgenerator = Mapgenerator.GetComponent<MapGenerator>();
+        Spawnmanager = GameObject.Find("Spawnmanager");
+        mySpawnmanager = Spawnmanager.GetComponent<Spawnmanager>();
         Camera = GameObject.Find("Main Camera");
         NightDay = Camera.transform.GetChild(0).gameObject;
         myNightDayCircel = NightDay.GetComponent<NightDayCircel>();
@@ -572,6 +576,13 @@ public class AnimalCtrl : MonoBehaviour
         waittimer = Random.Range(0, 10);
         placeholderX = Random.Range(-myMapgenerator.mapWidth / 10, myMapgenerator.mapWidth / 10);
         placeholderY = Random.Range(-myMapgenerator.mapHeight / 10, myMapgenerator.mapHeight / 10);
+
+        // Prüfung ob Zielpfad auf Wasser liegt ??????
+
+      /*  if(mySpawnmanager.CheckOnWater(placeholderX,placeholderY))
+        {
+            Direction();
+        }*/
     }
     //----------------------------------------------------------------------
 

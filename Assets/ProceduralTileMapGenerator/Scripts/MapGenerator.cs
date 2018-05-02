@@ -42,6 +42,7 @@ public class MapGenerator : MonoBehaviour
     private Sprite[] sprites;
 
     private byte[,] availableSpawnPoints;
+    public GameObject[] allObjects;
 
     void Start()
     {
@@ -115,6 +116,7 @@ public class MapGenerator : MonoBehaviour
                 SpriteRenderer Renderer = Tile.gameObject.GetComponent<SpriteRenderer>();
                 if (Renderer.sprite.name == "water")
                 {
+                    Tile.tag = "watertile";
                     Tile.GetComponent<BoxCollider2D>().enabled = true;
                     Tile.GetComponent<BoxCollider2D>().isTrigger = false;
                     Tile.GetComponent<BoxCollider2D>().size = new Vector2(spriteGroesse, spriteGroesse);
@@ -122,6 +124,9 @@ public class MapGenerator : MonoBehaviour
                 }
             }
         }
+
+        // Alle Watertiles auslesen // S
+        GameObject[] allObjects = UnityEngine.GameObject.FindGameObjectsWithTag("watertile");
     }
 
     void Update()

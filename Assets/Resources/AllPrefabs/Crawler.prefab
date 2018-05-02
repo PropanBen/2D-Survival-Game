@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114552670421745840}
   - component: {fileID: 61582122579756908}
   - component: {fileID: 95939033820850718}
+  - component: {fileID: 50613068052885880}
   m_Layer: 12
   m_Name: Crawler
   m_TagString: Animal
@@ -43,6 +44,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50613068052885880
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1756023463424624}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 7
 --- !u!61 &61582122579756908
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -52,7 +73,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.0077110305}
@@ -96,6 +117,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1616ce6ec80a5fa47bd7d046c4f39740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mySpawnmanager: {fileID: 0}
+  Spawnmanager: {fileID: 0}
   myMapgenerator: {fileID: 0}
   Mapgenerator: {fileID: 0}
   myNightDayCircel: {fileID: 0}

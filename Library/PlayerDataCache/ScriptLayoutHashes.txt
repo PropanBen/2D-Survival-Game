@@ -136,8 +136,8 @@ bdb014cbca7257262ede032d8b26b64f Assembly-CSharp.dll:.StackCrafting
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Fishable
 c7da1fc26c514710d0cd28a08548aa0e Assembly-CSharp.dll:.StackChest
 72e93b4081259a8248f1ad09cc761ec3 Assembly-CSharp.dll:.Coin
-897836ed366cea04c1d19f2069b93fb6 Assembly-CSharp.dll:.SoundSettings
-a98c1246ae115e4becdeff6084cc443a Assembly-CSharp.dll:.Spawnmanager
+82dc198e6f605e5a0d818ce564e7530e Assembly-CSharp.dll:.SoundSettings
+1ce93a74b12b73a2c9a988e15b2f5f41 Assembly-CSharp.dll:.Spawnmanager
 35502c57459a25c43f7d7a92da74752b Assembly-CSharp.dll:.FishingRod
 602767d931d871466976805ff324870b Assembly-CSharp.dll:.NightDayCircel
 04fc0576ace73d91bd196d3bbaa41946 Assembly-CSharp.dll:.Spawnpoint
@@ -150,7 +150,7 @@ b4b36b930605a494e5515dc244b1c972 Assembly-CSharp.dll:.Coins
 c3fb1059f778e5da11838172b0325e96 Assembly-CSharp.dll:.Inventar
 0436203e2137e0400a0dd420c9f1a54d Assembly-CSharp.dll:.StackInventory
 1401f4708bcc0b3bce18a2af72fad846 Assembly-CSharp.dll:.Bogen
-1709fa17fe6ae6f596ce491ef1412879 Assembly-CSharp.dll:.Fackel
+7127d0eb4d16b7c2dd2dcc22c4249ee0 Assembly-CSharp.dll:.Fackel
 c117269acc31f4a614adc1b41f9574eb Assembly-CSharp.dll:.Heal
 6055d51f5de71983a49cc0d95e710efc Assembly-CSharp.dll:.Mute
 01c1e5d1b812496e4bed7cf8850f3688 Assembly-CSharp.dll:.Damage

@@ -11,11 +11,14 @@ public class Spawnmanager : MonoBehaviour {
     public Dictionary<string, int> ToHavelist = new Dictionary<string, int>();
     public Dictionary<string, int> Havelist = new Dictionary<string, int>();
     public List<string> Objectlist = new List<string>();
+    public List<GameObject> Xcoords = new List<GameObject>();
+    public List<GameObject> Ycoords = new List<GameObject>();
+    public List<GameObject> SpawnedObjects = new List<GameObject>();
+    public Sprite X;
 
 
-    
 
-  //  {Hase,Fuchs,Bär,Hase,Bär,Fuchs }
+    //  {Hase,Fuchs,Bär,Hase,Bär,Fuchs }
 
     // Use this for initialization
     void Start ()
@@ -57,7 +60,11 @@ public class Spawnmanager : MonoBehaviour {
     {
 
         if (Input.GetKey(KeyCode.K))
+        {
             SpawnTrigger();
+            
+        }
+        
     }
 
     public void SpawnTrigger()
@@ -99,13 +106,64 @@ public class Spawnmanager : MonoBehaviour {
 
     public void InstantObject(string name, int amount)
     {
+        SpawnedObjects.Clear();
+
         for (int i = 0; i < amount; i++)
         {
             float x = Random.Range((float)-myMapGenerator.mapWidth / 10, (float)myMapGenerator.mapWidth / 10);
             float y = Random.Range((float)-myMapGenerator.mapHeight / 10, (float)myMapGenerator.mapHeight / 10);
-            GameObject Spawn = Instantiate(Prefabliste.Instance().GetGameObject(name), new Vector3(x, y, 0), Quaternion.identity);
-            Spawn.name = name;
+            if (!CheckOnWater(x, y))
+            {
+                GameObject Spawn = Instantiate(Prefabliste.Instance().GetGameObject(name), new Vector3(x, y, 0), Quaternion.identity);
+                Spawn.name = name;
+                SpawnedObjects.Add(Spawn);
+            }
         }
+    }
+
+    public bool CheckOnWater(float PlaceholderX, float PlaceholderY)
+    {
+        bool waterblocked = false;
+        print("ausgeführt");
+       
+        foreach (GameObject Object in myMapGenerator.allObjects)
+        {
+            float x = Object.transform.position.x;
+            float y = Object.transform.position.y;
+
+            // Check Spawned Items
+            foreach (GameObject Spawn in SpawnedObjects)
+            {
+                if (Spawn != null)
+                {
+                    float xs = Spawn.transform.position.x;
+                    float ys = Spawn.transform.position.y;
+
+                    if ((xs <= x + 0.32 && xs >= x - 0.32) &&
+                        (ys <= y + 0.32 && ys >= y - 0.32))
+                    {
+                       // Destroy(Spawn);
+                    }
+                }
+            }
+
+            // Check NPC/Animal Path
+            foreach (GameObject Spawn in SpawnedObjects)
+            {
+                if (Spawn != null)
+                {
+                    float xp = PlaceholderX;
+                    float yp = PlaceholderY;
+
+                    if ((xp <= x + 0.32 && xp >= x - 0.32) &&
+                        (yp <= y + 0.32 && yp >= y - 0.32))
+                    {
+                        waterblocked = true;
+                    }
+                }
+            }
+        }
+        return waterblocked;
     }
 
 }
